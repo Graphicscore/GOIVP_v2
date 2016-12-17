@@ -1,0 +1,5 @@
+C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\bin\Debug\GOIVPL.dll
+C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\bin\Debug\GOIVPL.pdb
+C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\obj\Debug\GOIVPL.dll
+C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\obj\Debug\GOIVPL.pdb
