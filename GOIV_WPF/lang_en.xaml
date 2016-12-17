@@ -55,6 +55,9 @@
     <system:String x:Key="STRING_INVALID_IMAGE_TITLE">Invalid Image File</system:String>
     <system:String x:Key="STRING_INVALID_IMAGE_MESSAGE">We could not load your image, is it corrupted ?</system:String>
     <system:String x:Key="STRING_EXCEPTION_INVALID_IMAGE_SIZE">Invalid image size, make sure the image is exact 128x128 Pixels</system:String>
+    <system:String x:Key="STRING_CONTEXT_FILE_RENAME">Rename</system:String>
+    <system:String x:Key="STRING_CONTEXT_FILE_REMOVE">Remove</system:String>
+    <system:String x:Key="STRING_CONTEXT_ARCHIVE_ADDFILE">Add File</system:String>
 
     <system:String x:Key="STRING_PROPERTIES_INVALID_TITLE">Required Properties</system:String>
     <system:String x:Key="STRING_PROPERTIES_INVALID_MESSAGE">The following properties are invalid or not set: </system:String>

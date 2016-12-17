@@ -218,7 +218,17 @@
                         <Controls:Tile x:Name="button_files_importfolder" Grid.Column="0" Title="{StaticResource STRING_IMPORT_FOLDER}" Width="auto" Height="auto" Click="button_files_importfolder_Click"/>
                         <Controls:Tile x:Name="button_files_clear" Grid.Column="1" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_clear_Click"/>
                     </Grid>
-                    <TreeView x:Name="treeview_files" Grid.Row="1"/>
+                    <TreeView x:Name="treeview_files" Grid.Row="1" SelectedItemChanged="TreeViewSelectItemChanged">
+                        <TreeView.Resources>
+                            <ContextMenu x:Key="ArchiveContext" StaysOpen="True">
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_ARCHIVE_ADDFILE}"/>
+                            </ContextMenu>
+                            <ContextMenu x:Key="FileContext" StaysOpen="True">
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_RENAME}"/>
+                            </ContextMenu>
+                        </TreeView.Resources>
+                    </TreeView>
                 </Grid>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource STRING_TAB_PREVIEW}">

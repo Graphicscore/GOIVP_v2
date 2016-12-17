@@ -508,6 +508,9 @@ namespace GOIV_WPF
                     childNode.Items.Add(t);
                 }
 
+                //Set the Tag to the command type for later context menu
+                childNode.Tag = cmd.GetType().Name;
+
                 nodes.Add(childNode);
             }
 
@@ -826,6 +829,25 @@ namespace GOIV_WPF
                 versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
                 label_preview_version.Content = versionString;
             }));
+        }
+
+        private void TreeViewSelectItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TreeViewItem selectedItem = e.NewValue as TreeViewItem;
+            if (selectedItem != null && selectedItem.Tag != null)
+            {
+                switch (selectedItem.Tag.ToString())
+                {
+                    case "add":
+                        treeview_files.ContextMenu = treeview_files.Resources["FileContext"] as ContextMenu;
+                        break;
+                    case "archive":
+                        treeview_files.ContextMenu = treeview_files.Resources["ArchiveContext"] as ContextMenu;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
