@@ -1,4 +1,7 @@
-﻿using GOIVPL;
+﻿using GOIV_WPF.Properties;
+using GOIV_WPF.Utils;
+using GOIV_WPF.views;
+using GOIVPL;
 using GOIVPL.Commands;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -37,9 +40,15 @@ namespace GOIV_WPF
 
         OIVFile oivFile = new OIVFile();
 
+        private PropertiesManager propertiesManager;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void onLoaded(object sender, RoutedEventArgs e)
+        {
             oivFile.MetaData.NameChanged += MetaData_NameChanged;
 
             oivFile.MetaData.Author.AuthorNameChanged += Author_AuthorNameChanged;
@@ -70,6 +79,9 @@ namespace GOIV_WPF
             oivFile.PictureChanged += OivFile_PictureChanged;
 
             oivFile.clear();
+
+            propertiesManager = new PropertiesManager(this);
+            propertiesManager.load();
         }
 
         private void OivFile_PictureChanged(object sender, PropertyChangedEventArgs e)
@@ -444,17 +456,7 @@ namespace GOIV_WPF
 
         private async void button_files_importfolder_Click(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
-            dlg.IsFolderPicker = true;
-            dlg.AddToMostRecentlyUsedList = false;
-            dlg.AllowNonFileSystemItems = false;
-            dlg.EnsureFileExists = true;
-            dlg.EnsurePathExists = true;
-            dlg.EnsureReadOnly = false;
-            dlg.EnsureValidNames = true;
-            dlg.Multiselect = false;
-            dlg.ShowPlacesList = true;
-
+            CommonOpenFileDialog dlg = DialogUtility.createOpenFolderDialog("");
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 var folder = dlg.FileName;
@@ -519,16 +521,7 @@ namespace GOIV_WPF
 
         private async void button_open_oiv_Click(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
-            dlg.IsFolderPicker = false;
-            dlg.AddToMostRecentlyUsedList = false;
-            dlg.AllowNonFileSystemItems = false;
-            dlg.EnsureFileExists = true;
-            dlg.EnsurePathExists = true;
-            dlg.EnsureReadOnly = false;
-            dlg.EnsureValidNames = true;
-            dlg.Multiselect = false;
-            dlg.ShowPlacesList = true;
+            CommonOpenFileDialog dlg = DialogUtility.createOpenFileDialog("");
 
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -848,6 +841,38 @@ namespace GOIV_WPF
                         break;
                 }
             }
+        }
+
+        private void button_settings_Click(object sender, RoutedEventArgs e)
+        {
+            flyout_settings.IsOpen = true;
+        }
+
+        public void openWorkingDirDialog()
+        {
+            Task.Run(async () =>
+            {
+                await this.ShowMessageAsync(FindResource("STRING_WORKING_DIR_POPUP_TITLE") as String, FindResource("STRING_WORKING_DIR_POPUP_MESSAGE") as String, MessageDialogStyle.Affirmative, null);
+            });
+        }
+
+        public void onPropertiesChanged()
+        {
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                tbx_settings_working_dir.Text = propertiesManager.getWorkingDirectory();
+            }));
+        }
+
+        private void button_settings_workingdir_change_Click(object sender, RoutedEventArgs e)
+        {
+            propertiesManager.changeWorkingDir();
+        }
+
+        private void button_files_xpath_Click(object sender, RoutedEventArgs e)
+        {
+            XPathWindow window = new XPathWindow();
+            window.Show();
         }
     }
 }

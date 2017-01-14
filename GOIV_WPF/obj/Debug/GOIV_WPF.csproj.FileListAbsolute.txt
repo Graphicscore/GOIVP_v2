@@ -145,3 +145,5 @@ G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\MainWindow.baml
 G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\GOIV_WPF.g.resources
 G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\GOIV_WPF.Properties.Resources.resources
 G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\GOIV_WPF.csproj.GenerateResource.Cache
+G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\views\XPathWindow.g.cs
+G:\Projects\Github\GOIVP_v2\GOIV_WPF\obj\Debug\views\XPathWindow.baml

@@ -9,14 +9,35 @@
         xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" x:Class="GOIV_WPF.MainWindow"
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="MainWindow" Height="621.916" Width="858.12">
+        Title="MainWindow" Height="621.916" Width="858.12" Loaded="onLoaded">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="{StaticResource STRING_ABOUT}" />
+            <Button x:Name="button_about" Content="{StaticResource STRING_ABOUT}" />
             <Button x:Name="button_open_oiv" Content="{StaticResource STRING_OPEN_OIV}" Click="button_open_oiv_Click" />
             <Button x:Name="button_export_oiv" Content="{StaticResource STRING_EXPORT_OIV}" Click="button_export_oiv_Click" />
+            <Button x:Name="button_settings" Content="{StaticResource STRING_SETTINGS}" Click="button_settings_Click"></Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Flyout" Position="Right" Width="200" Name="flyout_settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Foreground="White" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Content="{StaticResource STRING_WORKING_DIR_LABEL}"/>
+                    <TextBox Grid.Row="1" Grid.RowSpan="1" MaxLines="1" Height="auto" Name="tbx_settings_working_dir"/>
+                    <Button Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" Content="{StaticResource STRING_BROWSE_SHORT}" Click="button_settings_workingdir_change_Click"/>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
     <Grid>
         <Controls:MetroAnimatedSingleRowTabControl>
             <Controls:MetroTabItem Header="{StaticResource STRING_TAB_GENERAL}">
@@ -217,6 +238,7 @@
                         </Grid.ColumnDefinitions>
                         <Controls:Tile x:Name="button_files_importfolder" Grid.Column="0" Title="{StaticResource STRING_IMPORT_FOLDER}" Width="auto" Height="auto" Click="button_files_importfolder_Click"/>
                         <Controls:Tile x:Name="button_files_clear" Grid.Column="1" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_clear_Click"/>
+                        <Controls:Tile x:Name="button_files_xpath" Grid.Column="2" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_xpath_Click"/>
                     </Grid>
                     <TreeView x:Name="treeview_files" Grid.Row="1" SelectedItemChanged="TreeViewSelectItemChanged">
                         <TreeView.Resources>
@@ -390,3 +412,4 @@
         </Controls:MetroAnimatedSingleRowTabControl>
     </Grid>
 </Controls:MetroWindow>
+    
