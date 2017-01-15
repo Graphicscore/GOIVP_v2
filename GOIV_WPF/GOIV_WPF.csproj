@@ -129,6 +129,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\TreeViewUtils.cs" />
     <Compile Include="views\XPathWindow.xaml.cs">
       <DependentUpon>XPathWindow.xaml</DependentUpon>
     </Compile>

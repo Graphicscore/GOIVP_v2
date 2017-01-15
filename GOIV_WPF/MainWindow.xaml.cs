@@ -1,4 +1,5 @@
 ﻿using GOIV_WPF.Properties;
+using GOIV_WPF.UI;
 using GOIV_WPF.Utils;
 using GOIV_WPF.views;
 using GOIVPL;
@@ -41,6 +42,7 @@ namespace GOIV_WPF
         OIVFile oivFile = new OIVFile();
 
         private TreeViewItem backupRootNode;
+        private TreeViewItem lastSelectedTreeViewNode;
 
         private PropertiesManager propertiesManager;
 
@@ -791,7 +793,7 @@ namespace GOIV_WPF
         private void TreeViewSelectItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             Command cmd = e.NewValue as Command;
-            if (e != null)
+            if (cmd != null)
             {
                 switch(cmd.GetType().Name)
                 {
@@ -808,10 +810,14 @@ namespace GOIV_WPF
                     case "archive":
                         treeview_files.ContextMenu = treeview_files.Resources["ArchiveContext"] as ContextMenu;
                         break;
+                    case "xml":
+                        treeview_files.ContextMenu = treeview_files.Resources["XmlContext"] as ContextMenu;
+                        break;
                     default:
                         break;
                 }
             }
+            lastSelectedTreeViewNode = e.OriginalSource as TreeViewItem;
         }
 
         private void button_settings_Click(object sender, RoutedEventArgs e)
@@ -849,6 +855,47 @@ namespace GOIV_WPF
         private TreeViewItem getTreeViewRootNode()
         {
             return treeview_files.Items.GetItemAt(0) as TreeViewItem;
+        }
+
+        private void FileContextConvertXml_Click(object sender, RoutedEventArgs e)
+        {
+            xml cxml = new xml();
+            TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
+            TreeViewItem parent = TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem;
+            Command dataContext = parent.DataContext as Command;
+            int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
+            cxml.Path = (item.DataContext as add).Name;
+            dataContext.ICommands.RemoveAt(index);
+            dataContext.ICommands.Insert(index, cxml);
+            parent.DataContext = dataContext;
+            parent.Items.Refresh();
+        }
+
+        private void FileContextConvertFile_Click(object sender, RoutedEventArgs e)
+        {
+            add cadd = new add();
+            TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
+            TreeViewItem parent = TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem;
+
+            Command dataContext = parent.DataContext as Command;
+            int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
+
+            cadd.Name = (item.DataContext as xml).Path;
+
+            if (parent.DataContext.GetType() == typeof(archive))
+            {
+                cadd.Source = (parent.DataContext as archive).Path + "\\" + cadd.Name;
+            }
+            else
+            {
+                cadd.Source = cadd.Name;
+            }
+            
+            
+            dataContext.ICommands.RemoveAt(index);
+            dataContext.ICommands.Insert(index, cadd);
+            parent.DataContext = dataContext;
+            parent.Items.Refresh();
         }
     }
 }

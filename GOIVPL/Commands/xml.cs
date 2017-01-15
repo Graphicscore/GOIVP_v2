@@ -12,7 +12,6 @@ namespace GOIVPL.Commands
     public class xml : Command
     {
         private string path;
-        private string createIfNotExists;
 
         [System.Xml.Serialization.XmlAttribute("path")]
         public string Path

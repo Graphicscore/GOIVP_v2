@@ -267,7 +267,11 @@
                             <ContextMenu x:Key="XmlFileContext" StaysOpen="True">
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_RENAME}"/>
-                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XML}"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XML}" Click="FileContextConvertXml_Click"/>
+                            </ContextMenu>
+                            <ContextMenu x:Key="XmlContext" StaysOpen="True">
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_CONVERT}" Click="FileContextConvertFile_Click"/>
                             </ContextMenu>
                         </TreeView.Resources>
                     </TreeView>
