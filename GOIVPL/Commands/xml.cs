@@ -13,6 +13,9 @@ namespace GOIVPL.Commands
     {
         private string path;
 
+        [System.Xml.Serialization.XmlIgnore]
+        private String localXmlFilePath;
+
         [System.Xml.Serialization.XmlAttribute("path")]
         public string Path
         {
@@ -24,6 +27,20 @@ namespace GOIVPL.Commands
             set
             {
                 path = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public string LocalXmlFilePath
+        {
+            get
+            {
+                return localXmlFilePath;
+            }
+
+            set
+            {
+                localXmlFilePath = value;
             }
         }
         public xml() : base()

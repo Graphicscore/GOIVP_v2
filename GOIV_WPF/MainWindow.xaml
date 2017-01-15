@@ -240,7 +240,7 @@
                         </Grid.ColumnDefinitions>
                         <Controls:Tile x:Name="button_files_importfolder" Grid.Column="0" Title="{StaticResource STRING_IMPORT_FOLDER}" Width="auto" Height="auto" Click="button_files_importfolder_Click"/>
                         <Controls:Tile x:Name="button_files_clear" Grid.Column="1" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_clear_Click"/>
-                        <Controls:Tile x:Name="button_files_xpath" Grid.Column="2" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_xpath_Click"/>
+                        <Controls:Tile x:Name="button_files_xpath" Grid.Column="2" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto"/>
                     </Grid>
                     <TreeView x:Name="treeview_files" Grid.Row="1" SelectedItemChanged="TreeViewSelectItemChanged">
                         <TreeViewItem>
@@ -272,6 +272,7 @@
                             <ContextMenu x:Key="XmlContext" StaysOpen="True">
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_CONVERT}" Click="FileContextConvertFile_Click"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XPATH}" Click="FileContextEditXpath_Click" />
                             </ContextMenu>
                         </TreeView.Resources>
                     </TreeView>

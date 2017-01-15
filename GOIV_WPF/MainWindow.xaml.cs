@@ -846,12 +846,6 @@ namespace GOIV_WPF
             propertiesManager.changeWorkingDir();
         }
 
-        private void button_files_xpath_Click(object sender, RoutedEventArgs e)
-        {
-            XPathWindow window = new XPathWindow();
-            window.Show();
-        }
-
         private TreeViewItem getTreeViewRootNode()
         {
             return treeview_files.Items.GetItemAt(0) as TreeViewItem;
@@ -865,6 +859,7 @@ namespace GOIV_WPF
             Command dataContext = parent.DataContext as Command;
             int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
             cxml.Path = (item.DataContext as add).Name;
+            cxml.LocalXmlFilePath = (item.DataContext as add).Source;
             dataContext.ICommands.RemoveAt(index);
             dataContext.ICommands.Insert(index, cxml);
             parent.DataContext = dataContext;
@@ -896,6 +891,16 @@ namespace GOIV_WPF
             dataContext.ICommands.Insert(index, cadd);
             parent.DataContext = dataContext;
             parent.Items.Refresh();
+        }
+
+        private void FileContextEditXpath_Click(object sender, RoutedEventArgs e)
+        {
+            XPathWindow window = new XPathWindow(ref oivFile,treeview_files.SelectedItem as xml);
+            if(window.ShowDialog() == true)
+            {
+                
+            }
+            System.Windows.MessageBox.Show("");
         }
     }
 }
