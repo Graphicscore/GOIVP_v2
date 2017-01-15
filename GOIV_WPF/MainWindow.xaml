@@ -267,7 +267,7 @@
                             <ContextMenu x:Key="XmlFileContext" StaysOpen="True">
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_RENAME}"/>
-                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XML}" Click="MenuItem_Click"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XML}"/>
                             </ContextMenu>
                         </TreeView.Resources>
                     </TreeView>

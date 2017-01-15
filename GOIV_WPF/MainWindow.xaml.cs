@@ -790,13 +790,13 @@ namespace GOIV_WPF
 
         private void TreeViewSelectItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeViewItem selectedItem = e.NewValue as TreeViewItem;
-            if (selectedItem != null && selectedItem.Tag != null)
+            Command cmd = e.NewValue as Command;
+            if (e != null)
             {
-                switch ((selectedItem.Tag as Command).GetType().Name)
+                switch(cmd.GetType().Name)
                 {
                     case "add":
-                        if ((selectedItem.Tag as add).isXML())
+                        if((cmd as add).isXML())
                         {
                             treeview_files.ContextMenu = treeview_files.Resources["XmlFileContext"] as ContextMenu;
                         }
