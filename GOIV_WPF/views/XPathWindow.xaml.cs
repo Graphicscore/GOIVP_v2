@@ -84,6 +84,12 @@ namespace GOIV_WPF.views
                 case 0:
                     codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateAddXmlNode(), true));
                     break;
+                case 1:
+                    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateReplaceXmlNode(), true));
+                    break;
+                case 2:
+                    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateRemoveXmlNode(), true));
+                    break;
             }
 
             updateCodeText();
@@ -106,8 +112,25 @@ namespace GOIV_WPF.views
             XmlElement element = XmlTools.SerializeToXmlElement(cadd);
             element.InnerXml = "<dummy>Test Content</dummy>";
             return element;
-
         }
+
+        private XmlNode generateReplaceXmlNode()
+        {
+            GOIVPL.Commands._xml.replace cadd = new GOIVPL.Commands._xml.replace();
+            cadd.XPath = "";
+            XmlElement element = XmlTools.SerializeToXmlElement(cadd);
+            element.InnerXml = "<dummy>Test Content</dummy>";
+            return element;
+        }
+
+        private XmlNode generateRemoveXmlNode()
+        {
+            GOIVPL.Commands._xml.remove cadd = new GOIVPL.Commands._xml.remove();
+            cadd.XPath = "";
+            XmlElement element = XmlTools.SerializeToXmlElement(cadd);
+            return element;
+        }
+
 
         private void textXmlButton_Click(object sender, RoutedEventArgs e)
         {
@@ -116,11 +139,23 @@ namespace GOIV_WPF.views
             XmlDocument originalXml = xmlDocument.Clone() as XmlDocument;
             foreach (XmlNode childNode in rootElement.ChildNodes)
             {
-                switch (childNode.Name)
+                try
                 {
-                    case "add":
-                        runTest_Add(childNode);
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "add":
+                            runTest_Add(childNode);
+                            break;
+                        case "replace":
+                            runTest_Replace(childNode);
+                            break;
+                        case "remove":
+                            runTest_Remove(childNode);
+                            break;
+                    }
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(childNode.Attributes["xpath"].Value + " , Invalid Query");
                 }
             }
             updateXmlText();
@@ -133,14 +168,41 @@ namespace GOIV_WPF.views
             XmlNode node = xmlDocument.SelectSingleNode(cadd.XPath);
             if (node == null)
             {
-                MessageBox.Show("Sorry but that XPATH doesn't seem to be valid ...");
+                throw new Exception(cadd.XPath);
             }
             else
             {
                 node.AppendChild(xmlDocument.ImportNode(childNode.FirstChild,true));
             }
         }
-    }
 
+        private void runTest_Replace(XmlNode childNode)
+        {
+            GOIVPL.Commands._xml.replace creplace = XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.replace>(childNode as XmlElement);
+            XmlNode node = xmlDocument.SelectSingleNode(creplace.XPath);
+            if (node == null)
+            {
+                throw new Exception(creplace.XPath);
+            }
+            else
+            {
+                node.ParentNode.ReplaceChild(xmlDocument.ImportNode(childNode.FirstChild, true), node);
+            }
+        }
+
+        private void runTest_Remove(XmlNode childNode)
+        {
+            GOIVPL.Commands._xml.remove cremove = XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.remove>(childNode as XmlElement);
+            XmlNode node = xmlDocument.SelectSingleNode(cremove.XPath);
+            if (node == null)
+            {
+                throw new Exception(cremove.XPath);
+            }
+            else
+            {
+                node.ParentNode.RemoveChild(node);
+            }
+        }
+    }
 
 }

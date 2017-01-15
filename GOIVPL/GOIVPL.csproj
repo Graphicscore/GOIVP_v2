@@ -55,6 +55,8 @@
     <Compile Include="Commands\_text\delete.cs" />
     <Compile Include="Commands\_text\insert.cs" />
     <Compile Include="Commands\_text\replace.cs" />
+    <Compile Include="Commands\_xml\remove.cs" />
+    <Compile Include="Commands\_xml\replace.cs" />
     <Compile Include="Commands\_xml\add.cs" />
     <Compile Include="Info\AuthorInfo.cs" />
     <Compile Include="Info\Color.cs" />
