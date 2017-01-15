@@ -6,6 +6,8 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GOIV_WPF"
+        xmlns:lib="clr-namespace:GOIVPL;assembly=GOIVPL"
+        xmlns:libc="clr-namespace:GOIVPL.Commands;assembly=GOIVPL"
         xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" x:Class="GOIV_WPF.MainWindow"
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -241,6 +243,19 @@
                         <Controls:Tile x:Name="button_files_xpath" Grid.Column="2" Title="{StaticResource STRING_CLEAR_IMPORT}" Width="auto" Height="auto" Click="button_files_xpath_Click"/>
                     </Grid>
                     <TreeView x:Name="treeview_files" Grid.Row="1" SelectedItemChanged="TreeViewSelectItemChanged">
+                        <TreeViewItem>
+                            <TreeViewItem.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type lib:OIVFile}" ItemsSource="{Binding Content}">
+                                    <TextBlock Text="{Binding Path=CommandName}" />
+                                </HierarchicalDataTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type libc:Command}" ItemsSource="{Binding ICommands}">
+                                    <TextBlock Text="{Binding Path=CommandName}" />
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type libc:add}" >
+                                    <TextBlock Text="{Binding Path=CommandName}" />
+                                </DataTemplate>
+                            </TreeViewItem.Resources>
+                        </TreeViewItem>
                         <TreeView.Resources>
                             <ContextMenu x:Key="ArchiveContext" StaysOpen="True">
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_ARCHIVE_ADDFILE}"/>
@@ -248,6 +263,11 @@
                             <ContextMenu x:Key="FileContext" StaysOpen="True">
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
                                 <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_RENAME}"/>
+                            </ContextMenu>
+                            <ContextMenu x:Key="XmlFileContext" StaysOpen="True">
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_REMOVE}"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_RENAME}"/>
+                                <MenuItem Header="{StaticResource STRING_CONTEXT_FILE_XML}" Click="MenuItem_Click"/>
                             </ContextMenu>
                         </TreeView.Resources>
                     </TreeView>

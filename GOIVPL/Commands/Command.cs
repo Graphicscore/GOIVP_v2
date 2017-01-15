@@ -29,6 +29,22 @@ namespace GOIVPL.Commands
         [System.Xml.Serialization.XmlIgnore]
         public List<Command> subCommands = new List<Command>();
 
+        public IList<Command> ICommands
+        {
+            get
+            {
+                return subCommands;
+            }
+        }
+
+        public String CommandName
+        {
+            get
+            {
+                return getString();
+            }
+        }
+
         public virtual String getString()
         {
             return "Command";
@@ -83,12 +99,14 @@ namespace GOIVPL.Commands
             foreach(Command cmd in command)
             {
                 elements.Add(XmlTools.SerializeToXmlElement(cmd));
+                subCommands.AddRange(command);
             }
         }
 
         public void addSubCommand(Command command)
         {
             elements.Add(XmlTools.SerializeToXmlElement(command));
+            subCommands.Add(command);
         }
 
         public void addSubCommand(List<Command> command)
@@ -96,6 +114,7 @@ namespace GOIVPL.Commands
             foreach (Command c in command)
             {
                 elements.Add(XmlTools.SerializeToXmlElement(c));
+                subCommands.Add(c);
             }
         }
     }

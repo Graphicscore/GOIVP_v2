@@ -40,6 +40,8 @@ namespace GOIV_WPF
 
         OIVFile oivFile = new OIVFile();
 
+        private TreeViewItem backupRootNode;
+
         private PropertiesManager propertiesManager;
 
         public MainWindow()
@@ -80,13 +82,16 @@ namespace GOIV_WPF
 
             oivFile.clear();
 
-            propertiesManager = new PropertiesManager(this);
+            propertiesManager = PropertiesManager.getInstance(this);
             propertiesManager.load();
+
+            backupRootNode = treeview_files.Items.GetItemAt(0) as TreeViewItem;
         }
 
         private void OivFile_PictureChanged(object sender, PropertyChangedEventArgs e)
         {
-            image_preview.Dispatcher.Invoke(new Action(() => {
+            image_preview.Dispatcher.Invoke(new Action(() =>
+            {
                 MemoryStream ms = new MemoryStream();
                 oivFile.Picture.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Position = 0;
@@ -101,7 +106,8 @@ namespace GOIV_WPF
         private void Version_VersionTagChanged(object sender, PropertyChangedEventArgs e)
         {
             tbx_version_tag.Dispatcher.Invoke(new Action(() => { tbx_version_tag.Text = e.PropertyName; }));
-            label_preview_version.Dispatcher.Invoke(new Action(() => {
+            label_preview_version.Dispatcher.Invoke(new Action(() =>
+            {
                 String versionString = "";
                 versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
                 versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
@@ -112,21 +118,23 @@ namespace GOIV_WPF
         private void Version_VersionMinorChanged(object sender, PropertyChangedEventArgs e)
         {
             numeric_version_minor.Dispatcher.Invoke(new Action(() => { numeric_version_minor.Value = int.Parse(e.PropertyName); }));
-            label_preview_version.Dispatcher.Invoke(new Action(() => {
-               String versionString = "";
-               versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
-               versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
-               label_preview_version.Content = versionString;
+            label_preview_version.Dispatcher.Invoke(new Action(() =>
+            {
+                String versionString = "";
+                versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
+                versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
+                label_preview_version.Content = versionString;
             }));
         }
 
         private void Version_VersionMajorChanged(object sender, PropertyChangedEventArgs e)
         {
             numeric_version_major.Dispatcher.Invoke(new Action(() => { numeric_version_major.Value = int.Parse(e.PropertyName); }));
-            label_preview_version.Dispatcher.Invoke(new Action(() => {
+            label_preview_version.Dispatcher.Invoke(new Action(() =>
+            {
                 String versionString = "";
                 versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
-                versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
+                versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
                 label_preview_version.Content = versionString;
             }));
         }
@@ -223,20 +231,23 @@ namespace GOIV_WPF
             label_preview_author.Dispatcher.Invoke(new Action(() => { label_preview_author.Content = e.PropertyName; }));
             tbx_author_name.Dispatcher.Invoke(new Action(() => { tbx_author_name.Text = e.PropertyName; }));
             label_preview_createdby.Dispatcher.Invoke(new Action(() => { label_preview_createdby.Content = e.PropertyName; }));
-            
+
         }
 
         private void MetaData_NameChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            treeview_files.Dispatcher.Invoke(new Action(() => {
+            treeview_files.Dispatcher.Invoke(new Action(() =>
+            {
 
                 if (treeview_files.Items != null && treeview_files.Items.Count > 0)
                 {
-                    Object o = treeview_files.Items.GetItemAt(0);
-                    if (o != null)
+                    Object o = getTreeViewRootNode();
+                    if(o == null)
                     {
-                        (((o as TreeViewItem).Header as StackPanel).Children[0] as Label).Content = e.PropertyName;
+                        int r = treeview_files.Items.Add(backupRootNode);
+                        o = treeview_files.Items.GetItemAt(r);
                     }
+                    (o as TreeViewItem).Header = e.PropertyName;
                 }
 
                 label_preview_packagename.Content = e.PropertyName;
@@ -271,7 +282,7 @@ namespace GOIV_WPF
 
         private void tbx_version_tag_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(tbx_version_tag.Text.Length > 0 && !string.IsNullOrWhiteSpace(tbx_version_tag.Text))
+            if (tbx_version_tag.Text.Length > 0 && !string.IsNullOrWhiteSpace(tbx_version_tag.Text))
             {
                 oivFile.MetaData.Version.Tag = tbx_version_tag.Text;
                 checkbox_version_tag.IsChecked = true;
@@ -302,7 +313,8 @@ namespace GOIV_WPF
             {
                 toggle_large_description_footer.IsChecked = false;
             }
-            else {
+            else
+            {
                 toggle_large_description_footer.IsChecked = true;
             }
         }
@@ -460,25 +472,14 @@ namespace GOIV_WPF
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 var folder = dlg.FileName;
-                var controller = await this.ShowProgressAsync("Please wait , we are importing your folder",dlg.FileName);
+                var controller = await this.ShowProgressAsync("Please wait , we are importing your folder", dlg.FileName);
                 controller.SetCancelable(true);
                 controller.Canceled += Controller_Canceled;
                 controller.SetIndeterminate();
                 List<Command> commands = await Task.Run(() => new OIVPManager().createCommandSetFromFolder(dlg.FileName));
                 oivFile.ContentPath = dlg.FileName;
-                oivFile.Content.setCommands(commands);
-                TreeViewItem rootNode = new TreeViewItem();
-                StackPanel rootStackPanel = new StackPanel();
-                rootStackPanel.Orientation = Orientation.Horizontal;
-                Label rootNodeLabel = new Label();
-                rootNodeLabel.Content = oivFile.MetaData.Name;
-                rootStackPanel.Children.Add(rootNodeLabel);
-                rootNode.Header = rootStackPanel;
-                foreach(TreeViewItem t in await commandsToTreeViewItems(commands))
-                {
-                    rootNode.Items.Add(t);
-                }
-                treeview_files.Items.Add(rootNode);
+                oivFile.Content.ICommands = commands;
+                getTreeViewRootNode().ItemsSource = oivFile.ICommands;
                 await controller.CloseAsync();
             }
         }
@@ -486,37 +487,6 @@ namespace GOIV_WPF
         private void Controller_Canceled(object sender, EventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private async Task<TreeViewItem[]> commandsToTreeViewItems(List<Command> commands)
-        {
-            List<TreeViewItem> nodes = new List<TreeViewItem>();
-
-            foreach(Command cmd in commands)
-            {
-                TreeViewItem childNode = new TreeViewItem();
-
-                StackPanel stackPanel = new StackPanel();
-                stackPanel.Orientation = Orientation.Horizontal;
-
-                Label nodeLabel = new Label();
-                nodeLabel.Content = cmd.getString();
-                stackPanel.Children.Add(nodeLabel);
-
-                childNode.Header = stackPanel;
-                List<Command> subCommands = await Task.Run(() => cmd.getCommands().ToList<Command>());
-                foreach (TreeViewItem t in await commandsToTreeViewItems(subCommands))
-                {
-                    childNode.Items.Add(t);
-                }
-
-                //Set the Tag to the command type for later context menu
-                childNode.Tag = cmd.GetType().Name;
-
-                nodes.Add(childNode);
-            }
-
-            return nodes.ToArray<TreeViewItem>();
         }
 
         private async void button_open_oiv_Click(object sender, RoutedEventArgs e)
@@ -527,33 +497,22 @@ namespace GOIV_WPF
             {
                 var folder = dlg.FileName;
                 var controller = await this.ShowProgressAsync(FindResource("STRING_IMPORT_OIV_WAIT") as String, FindResource("STRNG_IMPORT_OIV_EXTRACTING") as String);
-                ProgressChangedEventHandler progressHandler = new ProgressChangedEventHandler((s, ex) => {
+                ProgressChangedEventHandler progressHandler = new ProgressChangedEventHandler((s, ex) =>
+                {
                     double value = (ex as ProgressChangedEventArgs).ProgressPercentage / 100D;
-                    if(value > 1D)
+                    if (value > 1D)
                     {
                         value = 1D;
                     }
                     controller.SetProgress(value);
                 });
                 OIVPManager manager = new OIVPManager();
-                Boolean b = await Task.Run(() => manager.ExtractOIV(dlg.FileName, progressHandler));
+                String resultPath = await Task.Run(() => manager.ExtractOIV(dlg.FileName, PropertiesManager.getInstance().getWorkingDirectory(),progressHandler));
                 controller.SetIndeterminate();
                 controller.SetMessage(FindResource("STRING_IMPORT_OIV_PARSE") as String);
-                OIVFile loadedOIV = await Task.Run(() => manager.loadOIVByUnextractedFolder(folder));
-
-                TreeViewItem rootNode = new TreeViewItem();
-                StackPanel rootStackPanel = new StackPanel();
-                rootStackPanel.Orientation = Orientation.Horizontal;
-                Label rootNodeLabel = new Label();
-                rootNodeLabel.Content = oivFile.MetaData.Name;
-                rootStackPanel.Children.Add(rootNodeLabel);
-                rootNode.Header = rootStackPanel;
-                foreach (TreeViewItem t in await commandsToTreeViewItems(await Task.Run(() => loadedOIV.Content.getCommands().ToList()))) 
-                {
-                    rootNode.Items.Add(t);
-                }
-
-                treeview_files.Items.Add(rootNode);
+                OIVFile loadedOIV = await Task.Run(() => manager.loadOIVByUnextractedFolder(resultPath + "\\assembly.xml"));
+                getTreeViewRootNode().ItemsSource = null;
+                getTreeViewRootNode().ItemsSource = loadedOIV.ICommands;
                 await Task.Run(() => updateOIV(loadedOIV));
                 await controller.CloseAsync();
             }
@@ -593,7 +552,7 @@ namespace GOIV_WPF
 
             String invalidFieldString = Environment.NewLine;
 
-            foreach(GOIVPropertyContainer info in invalidList)
+            foreach (GOIVPropertyContainer info in invalidList)
             {
                 invalidFieldString += "\u2022 " + info.attribute.getDisplayText() + Environment.NewLine;
             }
@@ -632,7 +591,7 @@ namespace GOIV_WPF
                 {
                     String packageOutDir = folder + ".packing";
                     String contentOutDir = packageOutDir + "\\content\\";
-                    
+
                     /*if(new DirectoryInfo(packageOutDir).Exists)
                     {
                         MessageDialogResult result = await this.ShowMessageAsync(FindResource("STRING_EXPORT_DIR_ALREDY") as String)
@@ -662,10 +621,10 @@ namespace GOIV_WPF
 
         private void button_files_clear_Click(object sender, RoutedEventArgs e)
         {
-            treeview_files.Items.Clear();
+            getTreeViewRootNode().ItemsSource = null;
         }
 
-        
+
 #pragma warning disable CS1998 // Bei der asynchronen Methode fehlen "await"-Operatoren. Die Methode wird synchron ausgeführt.
         private async void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 #pragma warning restore CS1998 // Bei der asynchronen Methode fehlen "await"-Operatoren. Die Methode wird synchron ausgeführt.
@@ -724,11 +683,13 @@ namespace GOIV_WPF
             oivFiler.Extensions.Add("png");
             dlg.Filters.Add(oivFiler);
 
-            if(dlg.ShowDialog() == CommonFileDialogResult.Ok)
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                try {
+                try
+                {
                     System.Drawing.Image b = Bitmap.FromFile(dlg.FileName);
-                    if (b != null) {
+                    if (b != null)
+                    {
 
                         GraphicsUnit g = GraphicsUnit.Pixel;
                         RectangleF bounds = b.GetBounds(ref g);
@@ -741,7 +702,8 @@ namespace GOIV_WPF
                             throw new Exception(FindResource("STRING_EXCEPTION_INVALID_IMAGE_SIZE") as String);
                         }
                     }
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     await this.ShowMessageAsync(FindResource("STRING_INVALID_IMAGE_TITLE") as String, FindResource("STRING_INVALID_IMAGE_MESSAGE") as String + Environment.NewLine + "Error : " + ex.Message, MessageDialogStyle.Affirmative);
                 }
@@ -750,7 +712,7 @@ namespace GOIV_WPF
 
         public BitmapImage Convert(Bitmap src)
         {
-            if(src == null)
+            if (src == null)
             {
                 return null;
             }
@@ -767,7 +729,7 @@ namespace GOIV_WPF
         private void menu_preview_setcolor_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.ColorDialog();
-            if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var wpfColor = System.Windows.Media.Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                 panel_iamge_preview.Background = new SolidColorBrush(wpfColor);
@@ -791,7 +753,7 @@ namespace GOIV_WPF
 
         private void previewToggleBlackWhite()
         {
-            if((label_preview_author.Foreground as SolidColorBrush).Color == (FindResource("BRUSH_WHITE") as SolidColorBrush).Color)
+            if ((label_preview_author.Foreground as SolidColorBrush).Color == (FindResource("BRUSH_WHITE") as SolidColorBrush).Color)
             {
                 label_preview_author.Foreground = (FindResource("BRUSH_BLACK") as SolidColorBrush);
                 label_preview_packagename.Foreground = (FindResource("BRUSH_BLACK") as SolidColorBrush);
@@ -806,7 +768,8 @@ namespace GOIV_WPF
 
         private void checkbox_version_tag_Unchecked(object sender, RoutedEventArgs e)
         {
-            label_preview_version.Dispatcher.Invoke(new Action(() => {
+            label_preview_version.Dispatcher.Invoke(new Action(() =>
+            {
                 String versionString = "";
                 versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
                 versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
@@ -816,7 +779,8 @@ namespace GOIV_WPF
 
         private void checkbox_version_tag_Checked(object sender, RoutedEventArgs e)
         {
-            label_preview_version.Dispatcher.Invoke(new Action(() => {
+            label_preview_version.Dispatcher.Invoke(new Action(() =>
+            {
                 String versionString = "";
                 versionString = oivFile.MetaData.Version.Major.ToString() + "." + oivFile.MetaData.Version.Minor.ToString();
                 versionString = string.IsNullOrWhiteSpace(oivFile.MetaData.Version.Tag) == false && checkbox_version_tag.IsChecked == true ? versionString + " (" + oivFile.MetaData.Version.Tag + ")" : versionString;
@@ -829,10 +793,17 @@ namespace GOIV_WPF
             TreeViewItem selectedItem = e.NewValue as TreeViewItem;
             if (selectedItem != null && selectedItem.Tag != null)
             {
-                switch (selectedItem.Tag.ToString())
+                switch ((selectedItem.Tag as Command).GetType().Name)
                 {
                     case "add":
-                        treeview_files.ContextMenu = treeview_files.Resources["FileContext"] as ContextMenu;
+                        if ((selectedItem.Tag as add).isXML())
+                        {
+                            treeview_files.ContextMenu = treeview_files.Resources["XmlFileContext"] as ContextMenu;
+                        }
+                        else
+                        {
+                            treeview_files.ContextMenu = treeview_files.Resources["FileContext"] as ContextMenu;
+                        }
                         break;
                     case "archive":
                         treeview_files.ContextMenu = treeview_files.Resources["ArchiveContext"] as ContextMenu;
@@ -873,6 +844,11 @@ namespace GOIV_WPF
         {
             XPathWindow window = new XPathWindow();
             window.Show();
+        }
+
+        private TreeViewItem getTreeViewRootNode()
+        {
+            return treeview_files.Items.GetItemAt(0) as TreeViewItem;
         }
     }
 }

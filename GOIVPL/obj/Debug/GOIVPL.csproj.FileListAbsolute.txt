@@ -3,3 +3,7 @@ C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\bi
 C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\bin\Debug\ICSharpCode.SharpZipLib.dll
 C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\obj\Debug\GOIVPL.dll
 C:\Users\Dominik Louven\Documents\Visual Studio 2015\Projects\GOIV_WPF\GOIVPL\obj\Debug\GOIVPL.pdb
+C:\Users\Graphicscore\Documents\GitHub\GOIVP_v2\GOIVPL\bin\Debug\GOIVPL.dll
+C:\Users\Graphicscore\Documents\GitHub\GOIVP_v2\GOIVPL\bin\Debug\GOIVPL.pdb
+C:\Users\Graphicscore\Documents\GitHub\GOIVP_v2\GOIVPL\obj\Debug\GOIVPL.dll
+C:\Users\Graphicscore\Documents\GitHub\GOIVP_v2\GOIVPL\obj\Debug\GOIVPL.pdb
