@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands._text
 {
+    [System.Xml.Serialization.XmlType("deleteText")]
     public class delete : Command
     {
         private String condition, text;

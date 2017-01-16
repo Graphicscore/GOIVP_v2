@@ -37,7 +37,7 @@ namespace GOIVPL
 
             return cmds.ToArray<Command>();
         }*/
-        public static Command[] commandFromXml(XmlElement[] elements)
+        /*public static Command[] commandFromXml(XmlElement[] elements)
         {
             List<Command> cmds = new List<Command>();
 
@@ -54,7 +54,7 @@ namespace GOIVPL
             }
 
             return cmds.ToArray<Command>();
-        }
+        }*/
 
         public OIVFile loadOIVByUnextractedFolder(String oivFile)
         {
@@ -245,7 +245,7 @@ namespace GOIVPL
                     archive.CreateIfNotExists = "True";
                     archive.ArchiveType = "RPF7";
 
-                    archive.addSubCommand(shit(rootDir, sDir, sDir));
+                    archive.ICommands.AddRange(shit(rootDir, sDir, sDir));
                     commands.Add(archive);
                 }
                 else

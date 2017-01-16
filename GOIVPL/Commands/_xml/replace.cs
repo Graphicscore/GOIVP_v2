@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands._xml
 {
+    [System.Xml.Serialization.XmlType("replaceXml")]
     public class replace : Command
     {
         private String xpath;

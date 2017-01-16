@@ -11,30 +11,41 @@ namespace GOIVPL.Commands
     [Serializable()]
     public class Command
     {
-        protected List<XmlElement> elements;
 
-        [System.Xml.Serialization.XmlAnyElement]
-        public List<XmlElement> Elements
-        {
-            get
-            {
-                return elements;
-            }
-
-            set
-            {
-                elements = value;
-            }
-        }
         [System.Xml.Serialization.XmlIgnore]
-        public List<Command> subCommands = new List<Command>();
+        private List<Command> subCommands = new List<Command>();
 
-        public IList<Command> ICommands
+        [System.Xml.Serialization.XmlElement(typeof(_text.add))]
+        [System.Xml.Serialization.XmlElement(typeof(_text.delete))]
+        [System.Xml.Serialization.XmlElement(typeof(_text.insert))]
+        [System.Xml.Serialization.XmlElement(typeof(_text.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.add), ElementName ="add")]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.remove))]
+        [System.Xml.Serialization.XmlElement(typeof(add))]
+        [System.Xml.Serialization.XmlElement(typeof(archive))]
+        [System.Xml.Serialization.XmlElement(typeof(Command))]
+        [System.Xml.Serialization.XmlElement(typeof(defragmentation))]
+        [System.Xml.Serialization.XmlElement(typeof(delete))]
+        [System.Xml.Serialization.XmlElement(typeof(text))]
+        [System.Xml.Serialization.XmlElement(typeof(xml))]
+        public List<Command> ICommands
         {
             get
             {
                 return subCommands;
             }
+        }
+
+
+        public virtual String getString()
+        {
+            return "Command";
+        }
+
+        public Command()
+        {
+
         }
 
         public String CommandName
@@ -45,38 +56,28 @@ namespace GOIVPL.Commands
             }
         }
 
-        public virtual String getString()
-        {
-            return "Command";
-        }
+        /* public virtual Command[] getSubCommands()
+         {
+             List<Command> nodes = new List<Command>();
 
-        public Command()
-        {
-            elements = new List<XmlElement>();
-        }
+             foreach (XmlElement element in elements)
+             {
+                 Assembly assem = Assembly.GetAssembly(typeof(GOIVPL.OIVFile));
+                 Type type;
+                 type = assem.GetType(GetType().Namespace + "." + element.Name);
+                 Command cmd = XmlTools.DeserializeFromXmlElement<Command>(type, element);
+                 cmd.getSubCommands();
+                 nodes.Add(cmd);
+             }
 
-       /* public virtual Command[] getSubCommands()
-        {
-            List<Command> nodes = new List<Command>();
-
-            foreach (XmlElement element in elements)
-            {
-                Assembly assem = Assembly.GetAssembly(typeof(GOIVPL.OIVFile));
-                Type type;
-                type = assem.GetType(GetType().Namespace + "." + element.Name);
-                Command cmd = XmlTools.DeserializeFromXmlElement<Command>(type, element);
-                cmd.getSubCommands();
-                nodes.Add(cmd);
-            }
-
-            return nodes.ToArray<Command>();
-        }*/
+             return nodes.ToArray<Command>();
+         }*/
 
         public virtual Command[] getCommands(){
-            OIVPManager mgr = new OIVPManager();
+            /*OIVPManager mgr = new OIVPManager();
             List<Command> cmds = new List<Command>();
 
-            foreach (XmlElement element in elements)
+            foreach (XmlElement element in Elements)
             {
                 Assembly assem = typeof(GOIVPL.OIVPManager).Assembly;
                 Type type = assem.GetType(typeof(Command).Namespace + "." + element.Name);
@@ -91,31 +92,39 @@ namespace GOIVPL.Commands
                 }
             }
 
-            return cmds.ToArray<Command>();
+            return cmds.ToArray<Command>();*/
+            return ICommands.ToArray();
         }
 
-        internal void addSubCommand(Command[] command)
+        /*internal void addSubCommand(Command[] command)
         {
             foreach(Command cmd in command)
             {
-                elements.Add(XmlTools.SerializeToXmlElement(cmd));
                 subCommands.AddRange(command);
             }
-        }
-
-        public void addSubCommand(Command command)
-        {
-            elements.Add(XmlTools.SerializeToXmlElement(command));
-            subCommands.Add(command);
         }
 
         public void addSubCommand(List<Command> command)
         {
             foreach (Command c in command)
             {
-                elements.Add(XmlTools.SerializeToXmlElement(c));
-                subCommands.Add(c);
+                addSubCommand(c);
             }
         }
+
+        public void addSubCommand(Command command)
+        {
+                subCommands.Add(command);
+        }
+
+        public void removeSubCommandAt(int index)
+        {
+            subCommands.RemoveAt(index);
+        }
+
+        public void insertSubCommandAt(int index, Command cmd)
+        {
+            subCommands.Insert(index,cmd);
+        }*/
     }
 }

@@ -251,9 +251,6 @@
                                 <HierarchicalDataTemplate DataType="{x:Type libc:Command}" ItemsSource="{Binding ICommands}">
                                     <TextBlock Text="{Binding Path=CommandName}" />
                                 </HierarchicalDataTemplate>
-                                <DataTemplate DataType="{x:Type libc:add}" >
-                                    <TextBlock Text="{Binding Path=CommandName}" />
-                                </DataTemplate>
                             </TreeViewItem.Resources>
                         </TreeViewItem>
                         <TreeView.Resources>

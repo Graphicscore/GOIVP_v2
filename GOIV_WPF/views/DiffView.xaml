@@ -11,6 +11,6 @@
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wpfDiffView="clr-namespace:WpfDiffView;assembly=WpfDiffView"
-        Title="XML Changes" Height="621.916" Width="858.12" Loaded="onLoaded">
+        Title="XML Changes" Height="621.916" Width="858.12" Loaded="onLoaded" Closing="MetroWindow_Closing">
     <wpfDiffView:DiffView x:Name="dView" MouseDown="dView_MouseDown"/>
 </Controls:MetroWindow>

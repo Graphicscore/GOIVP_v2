@@ -50,7 +50,7 @@ namespace GOIVPL.Commands
 
         public override Command[] getCommands()
         {
-            OIVPManager mgr = new OIVPManager();
+            /*OIVPManager mgr = new OIVPManager();
             List<Command> cmds = new List<Command>();
 
             foreach (XmlElement element in elements)
@@ -63,9 +63,9 @@ namespace GOIVPL.Commands
                     cmd.addSubCommand(cmd.getCommands());
                 }
                 cmds.Add(cmd);
-            }
+            }*/
 
-            return cmds.ToArray<Command>();
+            return ICommands.ToArray();//cmds.ToArray<Command>();
         }
 
         public override string getString()

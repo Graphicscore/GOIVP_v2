@@ -49,10 +49,10 @@ namespace GOIVPL.Commands
 
         public override Command[] getCommands()
         {
-            OIVPManager mgr = new OIVPManager();
-            List<Command> cmds = new List<Command>();
+            //OIVPManager mgr = new OIVPManager();
+            //List<Command> cmds = new List<Command>();
 
-            foreach (XmlElement element in elements)
+            /*foreach (XmlElement element in elements)
             {
                 Assembly assem = typeof(GOIVPL.OIVPManager).Assembly;
                 Type type = assem.GetType(typeof(Command).Namespace + "._text." + element.Name);
@@ -62,9 +62,9 @@ namespace GOIVPL.Commands
                     cmd.addSubCommand(cmd.getCommands());
                 }
                 cmds.Add(cmd);
-            }
+            }*/
 
-            return cmds.ToArray<Command>();
+            return ICommands.ToArray();
         }
 
         public override string getString()

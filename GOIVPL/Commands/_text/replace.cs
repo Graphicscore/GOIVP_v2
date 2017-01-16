@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands._text
 {
+    [System.Xml.Serialization.XmlType("replaceText")]
     public class replace : Command
     {
         private String line, condition,text;

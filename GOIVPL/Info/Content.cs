@@ -13,15 +13,28 @@ namespace GOIVPL.Info
     public class Content
     {
         [System.Xml.Serialization.XmlIgnore]
-        private IList<Command> commands;
+        private List<Command> commands;
 
         public Content()
         {
             commands = new List<Command>();
         }
 
-        [System.Xml.Serialization.XmlIgnore]
-        public IList<Command> ICommands
+        [System.Xml.Serialization.XmlElement(typeof(Commands._text.add))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._text.delete))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._text.insert))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._text.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._xml.add))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._xml.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(Commands._xml.remove))]
+        [System.Xml.Serialization.XmlElement(typeof(add))]
+        [System.Xml.Serialization.XmlElement(typeof(archive))]
+        [System.Xml.Serialization.XmlElement(typeof(Command))]
+        [System.Xml.Serialization.XmlElement(typeof(defragmentation))]
+        [System.Xml.Serialization.XmlElement(typeof(delete))]
+        [System.Xml.Serialization.XmlElement(typeof(text))]
+        [System.Xml.Serialization.XmlElement(typeof(xml))]
+        public List<Command> ICommands
         {
             get
             {
@@ -32,38 +45,5 @@ namespace GOIVPL.Info
                 commands = value;
             }
         }
-
-        [System.Xml.Serialization.XmlAnyElement]
-        public XmlElement[] Elements
-        {
-            get
-            {
-                List<XmlElement> xmls = new List<XmlElement>();
-                foreach (Command c in commands)
-                {
-                    xmls.Add(XmlTools.SerializeToXmlElement(c));
-                }
-                return xmls.ToArray();
-            }
-
-            set
-            {
-                ICommands.Clear();
-                Command[] cmds = OIVPManager.commandFromXml(value);
-                foreach(Command c in cmds)
-                {
-                    ICommands.Add(c);
-                }
-            }
-        }
-        /*public void setCommands(List<Command> commands)
-        {
-            List<XmlElement> xmls = new List<XmlElement>();
-            foreach(Command c in commands)
-            {
-                xmls.Add(XmlTools.SerializeToXmlElement(c));
-            }
-            this.Elements = xmls.ToArray();
-        }*/
     }
 }

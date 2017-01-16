@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands._xml
 {
+    [System.Xml.Serialization.XmlType("removeXml")]
     public class remove : Command
     {
         private String xpath;

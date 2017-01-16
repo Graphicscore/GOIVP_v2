@@ -25,6 +25,8 @@ namespace GOIV_WPF.views
     /// </summary>
     public partial class XPathWindow : MetroWindow
     {
+        public List<Command> commands;
+
         public struct Chunk
         {
             public int startpos;
@@ -129,6 +131,8 @@ namespace GOIV_WPF.views
 
             XmlNode curNode = null;
 
+            commands = new List<Command>();
+
             try
             {
                 foreach (XmlNode childNode in rootElement.ChildNodes)
@@ -138,17 +142,20 @@ namespace GOIV_WPF.views
                     {
                         case "add":
                             runTest_Add(childNode);
+                            commands.Add(XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.add>(childNode as XmlElement));
                             break;
                         case "replace":
                             runTest_Replace(childNode);
+                            commands.Add(XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.replace>(childNode as XmlElement));
                             break;
                         case "remove":
                             runTest_Remove(childNode);
+                            commands.Add(XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.remove>(childNode as XmlElement));
                             break;
                     }
 
                 }
-
+                DialogResult = true;
                 DiffView v = new DiffView(PrettyXml(originalXml.OuterXml), PrettyXml(xmlDocument.OuterXml));
                 v.ShowDialog();
             }

@@ -49,5 +49,12 @@ namespace GOIV_WPF.views
         {
             
         }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent("Emerald"),
+                                    ThemeManager.GetAppTheme("BaseLight"));
+        }
     }
 }

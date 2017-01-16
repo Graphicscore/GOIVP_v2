@@ -861,8 +861,7 @@ namespace GOIV_WPF
             cxml.Path = (item.DataContext as add).Name;
             cxml.LocalXmlFilePath = (item.DataContext as add).Source;
             dataContext.ICommands.RemoveAt(index);
-            dataContext.ICommands.Insert(index, cxml);
-            parent.DataContext = dataContext;
+            dataContext.ICommands.Insert(index, cxml);;
             parent.Items.Refresh();
         }
 
@@ -896,10 +895,14 @@ namespace GOIV_WPF
         private void FileContextEditXpath_Click(object sender, RoutedEventArgs e)
         {
             XPathWindow window = new XPathWindow(ref oivFile,treeview_files.SelectedItem as xml);
-            if(window.ShowDialog() == true)
+            if (window.ShowDialog() == true)
             {
-                
+                TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
+                Command cmd = item.DataContext as Command;
+                cmd.ICommands.AddRange(window.commands);
+                (TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem).Items.Refresh();
             }
+           
         }
     }
 }

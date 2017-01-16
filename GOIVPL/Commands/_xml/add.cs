@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands._xml
 {
+    [System.Xml.Serialization.XmlType("addXml")]
+    [System.Xml.Serialization.XmlRoot("add")]
     public class add : Command
     {
         private String xpath;
