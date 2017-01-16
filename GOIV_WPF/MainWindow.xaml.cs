@@ -498,7 +498,7 @@ namespace GOIV_WPF
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 var folder = dlg.FileName;
-                var controller = await this.ShowProgressAsync(FindResource("STRING_IMPORT_OIV_WAIT") as String, FindResource("STRNG_IMPORT_OIV_EXTRACTING") as String);
+                var controller = await this.ShowProgressAsync(FindResource("STRING_IMPORT_OIV_WAIT") as String, FindResource("STRING_IMPORT_OIV_EXTRACTING") as String);
                 ProgressChangedEventHandler progressHandler = new ProgressChangedEventHandler((s, ex) =>
                 {
                     double value = (ex as ProgressChangedEventArgs).ProgressPercentage / 100D;
