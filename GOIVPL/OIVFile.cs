@@ -28,6 +28,8 @@ namespace GOIVPL
         private string target;
         [System.Xml.Serialization.XmlIgnore]
         private string version;
+        [System.Xml.Serialization.XmlIgnore]
+        IList<Commands.Command> icommands;
 
         [System.Xml.Serialization.XmlIgnore]
         private System.Drawing.Bitmap picture;
@@ -91,6 +93,14 @@ namespace GOIVPL
                 {
                     handler(this, new PropertyChangedEventArgs(null));
                 }
+            }
+        }
+
+        public IList<Commands.Command> ICommands
+        {
+            get
+            {
+                return Content.ICommands;
             }
         }
 

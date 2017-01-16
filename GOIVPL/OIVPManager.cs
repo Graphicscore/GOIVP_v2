@@ -37,9 +37,8 @@ namespace GOIVPL
 
             return cmds.ToArray<Command>();
         }*/
-        public static Command[] getCommands(XmlElement[] elements)
+        public static Command[] commandFromXml(XmlElement[] elements)
         {
-            OIVPManager mgr = new OIVPManager();
             List<Command> cmds = new List<Command>();
 
             foreach (XmlElement element in elements)
@@ -57,9 +56,9 @@ namespace GOIVPL
             return cmds.ToArray<Command>();
         }
 
-        public OIVFile loadOIVByUnextractedFolder(String Folder)
+        public OIVFile loadOIVByUnextractedFolder(String oivFile)
         {
-            return loadOIV(new FileInfo(Folder + "_extracted\\assembly.xml"));
+            return loadOIV(new FileInfo(oivFile));
         }
 
         public OIVFile loadOIV(FileInfo file)
@@ -77,12 +76,13 @@ namespace GOIVPL
             return oiv;
         }
 
-        public Boolean ExtractOIV(String oivPath, ProgressChangedEventHandler progressHandler)
+        public String ExtractOIV(String oivPath, String workingDirectory, ProgressChangedEventHandler progressHandler)
         {
             FileInfo info = new FileInfo(oivPath);
             DirectoryInfo parentDir = info.Directory;
-            String outFolder = parentDir.FullName + "\\" + info.Name + "_extracted";
-            return ExtractZipFile(oivPath, "", outFolder, progressHandler);
+            String outFolder = workingDirectory + "\\" + info.Name + "_extracted";
+            String r = ExtractZipFile(oivPath, "", outFolder, progressHandler);
+            return r == null ? outFolder : null;
         }
 
         public void createZipFile(string outPathname, string folderName)
@@ -152,7 +152,7 @@ namespace GOIVPL
             }
         }
 
-        private Boolean ExtractZipFile(string archiveFilenameIn, string password, string outFolder, ProgressChangedEventHandler progress)
+        private String ExtractZipFile(string archiveFilenameIn, string password, string outFolder, ProgressChangedEventHandler progress)
         {
 
             ZipFile zf = null;
@@ -207,7 +207,7 @@ namespace GOIVPL
                     zf.Close(); // Ensure we release resources
                 }
             }
-            return true;
+            return null;
         }
 
         public List<Command> createCommandSetFromFolder(String selectedPath)

@@ -5,17 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Collections;
 
 namespace GOIVPL.Info
 {
     [Serializable()]
     public class Content
     {
-        private XmlElement[] elements;
+        [System.Xml.Serialization.XmlIgnore]
+        private IList<Command> commands;
 
         public Content()
         {
+            commands = new List<Command>();
+        }
 
+        [System.Xml.Serialization.XmlIgnore]
+        public IList<Command> ICommands
+        {
+            get
+            {
+                return commands;
+            }
+            set
+            {
+                commands = value;
+            }
         }
 
         [System.Xml.Serialization.XmlAnyElement]
@@ -23,21 +38,25 @@ namespace GOIVPL.Info
         {
             get
             {
-                return elements;
+                List<XmlElement> xmls = new List<XmlElement>();
+                foreach (Command c in commands)
+                {
+                    xmls.Add(XmlTools.SerializeToXmlElement(c));
+                }
+                return xmls.ToArray();
             }
 
             set
             {
-                elements = value;
+                ICommands.Clear();
+                Command[] cmds = OIVPManager.commandFromXml(value);
+                foreach(Command c in cmds)
+                {
+                    ICommands.Add(c);
+                }
             }
         }
-
-        public Command[] getCommands()
-        {
-            return OIVPManager.getCommands(Elements);
-        }
-
-        public void setCommands(List<Command> commands)
+        /*public void setCommands(List<Command> commands)
         {
             List<XmlElement> xmls = new List<XmlElement>();
             foreach(Command c in commands)
@@ -45,6 +64,6 @@ namespace GOIVPL.Info
                 xmls.Add(XmlTools.SerializeToXmlElement(c));
             }
             this.Elements = xmls.ToArray();
-        }
+        }*/
     }
 }

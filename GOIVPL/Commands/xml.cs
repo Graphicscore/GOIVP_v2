@@ -9,10 +9,12 @@ using System.Xml;
 namespace GOIVPL.Commands
 {
     [Serializable()]
-    public class text : Command
+    public class xml : Command
     {
         private string path;
-        private string createIfNotExists;
+
+        [System.Xml.Serialization.XmlIgnore]
+        private String localXmlFilePath;
 
         [System.Xml.Serialization.XmlAttribute("path")]
         public string Path
@@ -28,21 +30,20 @@ namespace GOIVPL.Commands
             }
         }
 
-        [System.Xml.Serialization.XmlAttribute("createIfNotExist")]
-        public string CreateIfNotExists
+        [System.Xml.Serialization.XmlIgnore]
+        public string LocalXmlFilePath
         {
             get
             {
-                return createIfNotExists;
+                return localXmlFilePath;
             }
 
             set
             {
-                createIfNotExists = value;
+                localXmlFilePath = value;
             }
         }
-
-        public text() : base()
+        public xml() : base()
         {
 
         }
@@ -55,7 +56,7 @@ namespace GOIVPL.Commands
             foreach (XmlElement element in elements)
             {
                 Assembly assem = typeof(GOIVPL.OIVPManager).Assembly;
-                Type type = assem.GetType(typeof(Command).Namespace + "._text." + element.Name);
+                Type type = assem.GetType(typeof(Command).Namespace + "._xml." + element.Name);
                 Command cmd = XmlTools.DeserializeFromXmlElement<Command>(type, element);
                 if (cmd.Elements != null && cmd.Elements.Count > 0)
                 {
@@ -69,7 +70,7 @@ namespace GOIVPL.Commands
 
         public override string getString()
         {
-            return "text, path=" + path;
+            return "xml, path=" + path;
         }
     }
 }

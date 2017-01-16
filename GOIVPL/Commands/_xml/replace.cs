@@ -4,35 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._text
+namespace GOIVPL.Commands._xml
 {
-    public class add : Command
+    public class replace : Command
     {
+        private String xpath;
 
-        private string text;
-
-        [System.Xml.Serialization.XmlText()]
-        public string Text
+        [System.Xml.Serialization.XmlAttribute("xpath")]
+        public string XPath
         {
             get
             {
-                return text;
+                return xpath;
             }
 
             set
             {
-                text = value;
+                xpath = value;
             }
         }
 
-        public add() : base()
+        public replace() : base()
         {
 
         }
 
         public override string getString()
         {
-            return "add text : " + text;
+            return "xml replace, xpath=" + xpath;
         }
     }
 }

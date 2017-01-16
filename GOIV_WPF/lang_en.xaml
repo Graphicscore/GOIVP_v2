@@ -62,6 +62,11 @@
     <system:String x:Key="STRING_BROWSE_SHORT">...</system:String>
     <system:String x:Key="STRING_WORKING_DIR_LABEL">Working Directory</system:String>
     <system:String x:Key="STRING_WORKING_DIR_POPUP_TITLE">Hello my friend !</system:String>
+    <system:String x:Key="STRING_CONTEXT_FILE_XML">Convert XML</system:String>
+    <system:String x:Key="STRING_CONTEXT_FILE_CONVERT">Convert File</system:String>
+    <system:String x:Key="STRING_CONTEXT_FILE_XPATH">Modify XPATH</system:String>
+    <system:String x:Key="STRING_XPATH_LOAD_DOC">Load Original XML</system:String>
+    
     <system:String x:Key="STRING_WORKING_DIR_POPUP_MESSAGE">It seems like we haven't set up a modding working directory yet. Please select a folder you would like to use for this tool to work internally with, we recommend to set this folder on a drive with alot of space =).</system:String>
 
     <system:String x:Key="STRING_PROPERTIES_INVALID_TITLE">Required Properties</system:String>

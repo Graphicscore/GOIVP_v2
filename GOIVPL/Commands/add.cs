@@ -50,5 +50,10 @@ namespace GOIVPL.Commands
         {
             return "add, source=" + source + " -> " + name;
         }
+
+        public Boolean isXML()
+        {
+            return Name.EndsWith(".xml") || Name.EndsWith(".meta");
+        }
     }
 }
