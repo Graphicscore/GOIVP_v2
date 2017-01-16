@@ -1,6 +1,7 @@
 ﻿using GOIVPL;
 using GOIVPL.Commands;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,6 @@ using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
 namespace GOIV_WPF.views
 {
     /// <summary>
@@ -25,6 +25,13 @@ namespace GOIV_WPF.views
     /// </summary>
     public partial class XPathWindow : MetroWindow
     {
+        public struct Chunk
+        {
+            public int startpos;
+            public int length;
+            public Color BackColor;
+        }
+
         private xml command;
         private OIVFile oivFile;
 
@@ -77,24 +84,6 @@ namespace GOIV_WPF.views
 
         }
 
-        private void insertXmlButton_Click(object sender, RoutedEventArgs e)
-        {
-            switch (combbox.SelectedIndex)
-            {
-                case 0:
-                    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateAddXmlNode(), true));
-                    break;
-                case 1:
-                    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateReplaceXmlNode(), true));
-                    break;
-                case 2:
-                    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateRemoveXmlNode(), true));
-                    break;
-            }
-
-            updateCodeText();
-        }
-
         private void updateCodeText()
         {
             codeBox.Text = PrettyXml(codeDocument.OuterXml);
@@ -136,11 +125,15 @@ namespace GOIV_WPF.views
         {
             codeDocument.LoadXml(codeBox.Text);
             XmlElement rootElement = codeDocument.DocumentElement;
-            XmlDocument originalXml = xmlDocument.Clone() as XmlDocument;
-            foreach (XmlNode childNode in rootElement.ChildNodes)
+            XmlDocument originalXml = xmlDocument.CloneNode(true) as XmlDocument;
+
+            XmlNode curNode = null;
+
+            try
             {
-                try
+                foreach (XmlNode childNode in rootElement.ChildNodes)
                 {
+                    curNode = childNode;
                     switch (childNode.Name)
                     {
                         case "add":
@@ -153,14 +146,25 @@ namespace GOIV_WPF.views
                             runTest_Remove(childNode);
                             break;
                     }
-                }catch(Exception ex)
-                {
-                    MessageBox.Show(childNode.Attributes["xpath"].Value + " , Invalid Query");
+
                 }
+
+                DiffView v = new DiffView(PrettyXml(originalXml.OuterXml), PrettyXml(xmlDocument.OuterXml));
+                v.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                this.ShowMessageAsync(TryFindResource("STRING_XPATH_ERROR_TITLE") as String, TryFindResource("STRING_XPATH_ERROR_MESSAGE") as String + Environment.NewLine + PrettyXml(curNode.OuterXml), MessageDialogStyle.Affirmative);
             }
             updateXmlText();
+
+
             xmlDocument = originalXml;
+
+
+
         }
+
 
         private void runTest_Add(XmlNode childNode)
         {
@@ -172,7 +176,7 @@ namespace GOIV_WPF.views
             }
             else
             {
-                node.AppendChild(xmlDocument.ImportNode(childNode.FirstChild,true));
+                node.AppendChild(xmlDocument.ImportNode(childNode.FirstChild, true));
             }
         }
 
@@ -202,6 +206,26 @@ namespace GOIV_WPF.views
             {
                 node.ParentNode.RemoveChild(node);
             }
+        }
+
+        private void codebox_context_add_Click(object sender, RoutedEventArgs e)
+        {
+            codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateAddXmlNode(), true));
+            updateCodeText();
+
+        }
+
+        private void codebox_context_replace_Click(object sender, RoutedEventArgs e)
+        {
+            codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateReplaceXmlNode(), true));
+            updateCodeText();
+
+        }
+
+        private void codebox_context_remove_Click(object sender, RoutedEventArgs e)
+        {
+            codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateRemoveXmlNode(), true));
+            updateCodeText();
         }
     }
 

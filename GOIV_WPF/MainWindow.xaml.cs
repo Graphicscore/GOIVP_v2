@@ -900,7 +900,6 @@ namespace GOIV_WPF
             {
                 
             }
-            System.Windows.MessageBox.Show("");
         }
     }
 }
