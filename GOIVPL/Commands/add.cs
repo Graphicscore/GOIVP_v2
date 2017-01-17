@@ -9,9 +9,60 @@ namespace GOIVPL.Commands
     [Serializable()]
     public class add : Command
     {
-
+        //Generic
         private string source;
-        private string name;
+        private string content;
+
+        //Xml
+        private String xpath;
+        private String append;
+        public const String APPEND_FIRST = "First", APPEND_LAST = "Last";
+
+        public add() : base()
+        {
+            useType = UseType.Generic;
+        }
+
+        public add(UseType type) : base()
+        {
+            useType = type;
+        }
+
+        public override string getString()
+        {
+            switch (useType)
+            {
+                case UseType.TXT:
+                    return "add text : " + content;
+                case UseType.XML:
+                    return "xml add, xpath=" + xpath;
+                default:
+                case UseType.Generic:
+                    return "add, source=" + source + " -> " + content;
+            }
+            
+        }
+
+        public Boolean isXML()
+        {
+            return content.EndsWith(".xml") || content.EndsWith(".meta");
+        }
+
+        
+
+        [System.Xml.Serialization.XmlText()]
+        public string Content
+        {
+            get
+            {
+                return content;
+            }
+
+            set
+            {
+                content = value;
+            }
+        }
 
         [System.Xml.Serialization.XmlAttribute("source")]
         public string Source
@@ -27,33 +78,34 @@ namespace GOIVPL.Commands
             }
         }
 
-        [System.Xml.Serialization.XmlText()]
-        public string Name
+        //XML Related
+        [System.Xml.Serialization.XmlAttribute("xpath")]
+        public string XPath
         {
             get
             {
-                return name;
+                return xpath;
             }
 
             set
             {
-                name = value;
+                xpath = value;
             }
         }
 
-        public add() : base()
+        [System.Xml.Serialization.XmlAttribute("append")]
+        public string Append
         {
+            get
+            {
+                return append;
+            }
 
+            set
+            {
+                append = value;
+            }
         }
 
-        public override string getString()
-        {
-            return "add, source=" + source + " -> " + name;
-        }
-
-        public Boolean isXML()
-        {
-            return Name.EndsWith(".xml") || Name.EndsWith(".meta");
-        }
     }
 }

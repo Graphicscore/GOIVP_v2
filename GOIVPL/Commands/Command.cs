@@ -12,10 +12,13 @@ namespace GOIVPL.Commands
     public class Command
     {
 
+        public enum UseType { Generic, XML, TXT }
+
+        protected UseType useType = UseType.Generic;
+
         [System.Xml.Serialization.XmlIgnore]
         private List<Command> subCommands = new List<Command>();
 
-        [System.Xml.Serialization.XmlElement(typeof(_text.add))]
         [System.Xml.Serialization.XmlElement(typeof(_text.delete))]
         [System.Xml.Serialization.XmlElement(typeof(_text.insert))]
         [System.Xml.Serialization.XmlElement(typeof(_text.replace))]
