@@ -67,6 +67,11 @@ namespace GOIVPL.Commands
         {
             return useType == UseType.Generic;
         }
+        protected bool isTXTCommandType()
+        {
+            return useType == UseType.TXT;
+        }
+        
 
         /* public virtual Command[] getSubCommands()
          {
