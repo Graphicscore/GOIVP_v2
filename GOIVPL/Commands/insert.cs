@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._text
+namespace GOIVPL.Commands
 {
     [Serializable()]
     public class insert : Command

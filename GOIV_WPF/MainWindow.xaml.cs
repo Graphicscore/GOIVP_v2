@@ -858,7 +858,7 @@ namespace GOIV_WPF
             TreeViewItem parent = TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem;
             Command dataContext = parent.DataContext as Command;
             int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
-            cxml.Path = (item.DataContext as add).Name;
+            cxml.Path = (item.DataContext as add).Content;
             cxml.LocalXmlFilePath = (item.DataContext as add).Source;
             dataContext.ICommands.RemoveAt(index);
             dataContext.ICommands.Insert(index, cxml);;
@@ -874,15 +874,15 @@ namespace GOIV_WPF
             Command dataContext = parent.DataContext as Command;
             int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
 
-            cadd.Name = (item.DataContext as xml).Path;
+            cadd.Content = (item.DataContext as xml).Path;
 
             if (parent.DataContext.GetType() == typeof(archive))
             {
-                cadd.Source = (parent.DataContext as archive).Path + "\\" + cadd.Name;
+                cadd.Source = (parent.DataContext as archive).Path + "\\" + cadd.Content;
             }
             else
             {
-                cadd.Source = cadd.Name;
+                cadd.Source = cadd.Content;
             }
             
             

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._xml
+namespace GOIVPL.Commands
 {
     public class remove : Command
     {
