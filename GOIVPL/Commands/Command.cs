@@ -59,6 +59,15 @@ namespace GOIVPL.Commands
             }
         }
 
+        protected bool isXMLCommandType()
+        {
+            return useType == UseType.XML;
+        }
+        protected bool isGenericCommandType()
+        {
+            return useType == UseType.Generic;
+        }
+
         /* public virtual Command[] getSubCommands()
          {
              List<Command> nodes = new List<Command>();

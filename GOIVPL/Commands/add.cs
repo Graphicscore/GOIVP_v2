@@ -48,8 +48,6 @@ namespace GOIVPL.Commands
             return content.EndsWith(".xml") || content.EndsWith(".meta");
         }
 
-        
-
         [System.Xml.Serialization.XmlText()]
         public string Content
         {
@@ -107,5 +105,19 @@ namespace GOIVPL.Commands
             }
         }
 
+        public bool ShouldSerializeXPath()
+        {
+            return isXMLCommandType();
+        }
+
+        public bool ShouldSerializeAppend()
+        {
+            return isXMLCommandType();
+        }
+
+        public bool ShouldSerializeSource()
+        {
+            return isGenericCommandType();
+        }
     }
 }
