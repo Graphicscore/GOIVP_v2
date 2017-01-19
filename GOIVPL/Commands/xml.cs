@@ -48,6 +48,26 @@ namespace GOIVPL.Commands
 
         }
 
+        public override Command[] getCommands()
+        {
+            /*OIVPManager mgr = new OIVPManager();
+            List<Command> cmds = new List<Command>();
+
+            foreach (XmlElement element in elements)
+            {
+                Assembly assem = typeof(GOIVPL.OIVPManager).Assembly;
+                Type type = assem.GetType(typeof(Command).Namespace + "._xml." + element.Name);
+                Command cmd = XmlTools.DeserializeFromXmlElement<Command>(type, element);
+                if (cmd.Elements != null && cmd.Elements.Count > 0)
+                {
+                    cmd.addSubCommand(cmd.getCommands());
+                }
+                cmds.Add(cmd);
+            }*/
+
+            return ICommands.ToArray();//cmds.ToArray<Command>();
+        }
+
         public override string getString()
         {
             return "xml, path=" + path;
