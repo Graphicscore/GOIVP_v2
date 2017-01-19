@@ -52,6 +52,7 @@
     <Compile Include="Commands\delete.cs" />
     <Compile Include="Commands\xml.cs" />
     <Compile Include="Commands\text.cs" />
+    <Compile Include="Commands\_text\delete.cs" />
     <Compile Include="Commands\_text\insert.cs" />
     <Compile Include="Commands\_text\replace.cs" />
     <Compile Include="Commands\_xml\remove.cs" />
