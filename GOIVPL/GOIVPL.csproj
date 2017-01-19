@@ -52,9 +52,9 @@
     <Compile Include="Commands\delete.cs" />
     <Compile Include="Commands\xml.cs" />
     <Compile Include="Commands\text.cs" />
-    <Compile Include="Commands\insert.cs" />
+    <Compile Include="Commands\_text\insert.cs" />
     <Compile Include="Commands\_text\replace.cs" />
-    <Compile Include="Commands\remove.cs" />
+    <Compile Include="Commands\_xml\remove.cs" />
     <Compile Include="Commands\_xml\replace.cs" />
     <Compile Include="Info\AuthorInfo.cs" />
     <Compile Include="Info\Color.cs" />
