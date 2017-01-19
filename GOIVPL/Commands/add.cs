@@ -23,6 +23,11 @@ namespace GOIVPL.Commands
             useType = UseType.Generic;
         }
 
+        public add(UseType type) : base()
+        {
+            useType = type;
+        }
+
         public override string getString()
         {
             switch (useType)

@@ -19,8 +19,10 @@ namespace GOIVPL.Commands
         [System.Xml.Serialization.XmlIgnore]
         private List<Command> subCommands = new List<Command>();
 
+        [System.Xml.Serialization.XmlElement(typeof(_text.delete))]
         [System.Xml.Serialization.XmlElement(typeof(_text.insert))]
         [System.Xml.Serialization.XmlElement(typeof(_text.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.add), ElementName ="add")]
         [System.Xml.Serialization.XmlElement(typeof(_xml.replace))]
         [System.Xml.Serialization.XmlElement(typeof(_xml.remove))]
         [System.Xml.Serialization.XmlElement(typeof(add))]
@@ -47,11 +49,6 @@ namespace GOIVPL.Commands
         public Command()
         {
 
-        }
-
-        public Command(UseType type)
-        {
-            useType = type;
         }
 
         public String CommandName

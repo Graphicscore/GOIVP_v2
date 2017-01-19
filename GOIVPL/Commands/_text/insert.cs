@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace GOIVPL.Commands._text
 {
     [Serializable()]
+    [System.Xml.Serialization.XmlType("insertText")]
     public class insert : Command
     {
         private String where, line, condition, text;
@@ -67,7 +68,7 @@ namespace GOIVPL.Commands._text
             }
         }
 
-        public insert() : base(UseType.TXT)
+        public insert() : base()
         {
 
         }
