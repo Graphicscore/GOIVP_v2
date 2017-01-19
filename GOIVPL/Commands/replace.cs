@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GOIVPL.Commands
+namespace GOIVPL.Commands._text
 {
+    [System.Xml.Serialization.XmlType("replaceText")]
     public class replace : Command
     {
         //TXT

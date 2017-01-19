@@ -19,6 +19,17 @@ namespace GOIVPL.Commands
         [System.Xml.Serialization.XmlIgnore]
         private List<Command> subCommands = new List<Command>();
 
+        [System.Xml.Serialization.XmlElement(typeof(_text.insert))]
+        [System.Xml.Serialization.XmlElement(typeof(_text.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.replace))]
+        [System.Xml.Serialization.XmlElement(typeof(_xml.remove))]
+        [System.Xml.Serialization.XmlElement(typeof(add))]
+        [System.Xml.Serialization.XmlElement(typeof(archive))]
+        [System.Xml.Serialization.XmlElement(typeof(Command))]
+        [System.Xml.Serialization.XmlElement(typeof(defragmentation))]
+        [System.Xml.Serialization.XmlElement(typeof(delete))]
+        [System.Xml.Serialization.XmlElement(typeof(text))]
+        [System.Xml.Serialization.XmlElement(typeof(xml))]
         public List<Command> ICommands
         {
             get

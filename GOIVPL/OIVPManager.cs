@@ -233,7 +233,7 @@ namespace GOIVPL
             {
                 add addC = new add();
                 addC.Source = checkLeading(sFile.FullName.Replace(rootDir.FullName, ""));
-                addC.Content = checkLeading(sFile.FullName.Replace(archiveDir.FullName, ""));
+                addC.Name = checkLeading(sFile.FullName.Replace(archiveDir.FullName, ""));
                 commands.Add(addC);
             }
             foreach (DirectoryInfo sDir in dir.GetDirectories())
