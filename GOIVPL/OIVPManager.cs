@@ -1,4 +1,6 @@
 ﻿using GOIVPL.Commands;
+using GOIVPL.Commands.generic;
+using GOIVPL.Commands.real;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
@@ -210,28 +212,26 @@ namespace GOIVPL
             return null;
         }
 
-        public List<Command> createCommandSetFromFolder(String selectedPath)
+        public List<BaseCommand> createCommandSetFromFolder(String selectedPath)
         {
 
             DirectoryInfo folder = new DirectoryInfo(selectedPath);
 
-            Command command = new Command();
-
-            List<Command> cmd = shit(folder, folder, folder);
+            List<BaseCommand> cmd = shit(folder, folder, folder);
 
             return cmd;
         }
 
-        public List<Command> shit(DirectoryInfo rootDir, DirectoryInfo dir, DirectoryInfo archiveDir)
+        public List<BaseCommand> shit(DirectoryInfo rootDir, DirectoryInfo dir, DirectoryInfo archiveDir)
         {
 
             
 
-            List<Command> commands = new List<Command>();
+            List<BaseCommand> commands = new List<BaseCommand>();
 
             foreach (FileInfo sFile in dir.GetFiles())
             {
-                add addC = new add();
+                AddCommand addC = new AddCommand();
                 addC.Source = checkLeading(sFile.FullName.Replace(rootDir.FullName, ""));
                 addC.Name = checkLeading(sFile.FullName.Replace(archiveDir.FullName, ""));
                 commands.Add(addC);
@@ -240,12 +240,12 @@ namespace GOIVPL
             {
                 if (sDir.Name.Contains(".rpf"))
                 {
-                    archive archive = new archive();
+                    ArchiveCommand archive = new ArchiveCommand();
                     archive.Path = checkLeading(sDir.FullName.Replace(archiveDir.FullName, ""));
                     archive.CreateIfNotExists = "True";
                     archive.ArchiveType = "RPF7";
 
-                    archive.ICommands.AddRange(shit(rootDir, sDir, sDir));
+                    archive.SubCommands.AddRange(shit(rootDir, sDir, sDir));
                     commands.Add(archive);
                 }
                 else

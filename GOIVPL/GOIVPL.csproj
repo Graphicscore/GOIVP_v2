@@ -50,6 +50,18 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\defragmentation.cs" />
     <Compile Include="Commands\delete.cs" />
+    <Compile Include="Commands\generic\InterfaceCommand.cs" />
+    <Compile Include="Commands\generic\BaseCommand.cs" />
+    <Compile Include="Commands\generic\SubCommand.cs" />
+    <Compile Include="Commands\real\AddCommand.cs" />
+    <Compile Include="Commands\real\ArchiveCommand.cs" />
+    <Compile Include="Commands\real\DefragmentationCommand.cs" />
+    <Compile Include="Commands\real\DeleteCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlReplaceCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlRemoveCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlAddCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlSubCommand.cs" />
+    <Compile Include="Commands\real\XmlCommand.cs" />
     <Compile Include="Commands\xml.cs" />
     <Compile Include="Commands\text.cs" />
     <Compile Include="Commands\_text\add.cs" />
@@ -58,7 +70,7 @@
     <Compile Include="Commands\_text\replace.cs" />
     <Compile Include="Commands\_xml\remove.cs" />
     <Compile Include="Commands\_xml\replace.cs" />
-    <Compile Include="Commands\_xml\add.cs" />
+    <Compile Include="Commands\_xml\xmladd.cs" />
     <Compile Include="Info\AuthorInfo.cs" />
     <Compile Include="Info\Color.cs" />
     <Compile Include="Info\Content.cs" />
@@ -75,6 +87,7 @@
     <Compile Include="XPath\XPathFile.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

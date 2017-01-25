@@ -1,38 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._xml
-{
-    [System.Xml.Serialization.XmlType("replaceXml")]
-    public class replace : Command
-    {
-        private String xpath;
+//namespace GOIVPL.Commands._xml
+//{
+//    [System.Xml.Serialization.XmlType("replaceXml")]
+//    public class replace : Command
+//    {
+//        private String xpath;
 
-        [System.Xml.Serialization.XmlAttribute("xpath")]
-        public string XPath
-        {
-            get
-            {
-                return xpath;
-            }
+//        [System.Xml.Serialization.XmlAttribute("xpath")]
+//        public string XPath
+//        {
+//            get
+//            {
+//                return xpath;
+//            }
 
-            set
-            {
-                xpath = value;
-            }
-        }
+//            set
+//            {
+//                xpath = value;
+//            }
+//        }
 
-        public replace() : base()
-        {
+//        public replace() : base()
+//        {
 
-        }
+//        }
 
-        public override string getString()
-        {
-            return "xml replace, xpath=" + xpath;
-        }
-    }
-}
+//        public override string getString()
+//        {
+//            return "xml replace, xpath=" + xpath;
+//        }
+//    }
+//}
