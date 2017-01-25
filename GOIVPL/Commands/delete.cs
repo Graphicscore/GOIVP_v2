@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GOIVPL.Commands
-{
-    [Serializable()]
-    public class delete : Command
-    {
-        private string name;
+//namespace GOIVPL.Commands
+//{
+//    [Serializable()]
+//    public class delete : Command
+//    {
+//        private string name;
 
-        [System.Xml.Serialization.XmlText()]
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
+//        [System.Xml.Serialization.XmlText()]
+//        public string Name
+//        {
+//            get
+//            {
+//                return name;
+//            }
 
-            set
-            {
-                name = value;
-            }
-        }
+//            set
+//            {
+//                name = value;
+//            }
+//        }
 
-        public delete() : base()
-        {
+//        public delete() : base()
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}
