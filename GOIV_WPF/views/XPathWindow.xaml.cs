@@ -108,22 +108,22 @@ namespace GOIV_WPF.views
             return element;
         }
 
-        //private XmlNode generateReplaceXmlNode()
-        //{
-        //    GOIVPL.Commands._xml.replace cadd = new GOIVPL.Commands._xml.replace();
-        //    cadd.XPath = "";
-        //    XmlElement element = XmlTools.SerializeToXmlElement(cadd);
-        //    element.InnerXml = "<dummy>Test Content</dummy>";
-        //    return element;
-        //}
+        private XmlNode generateReplaceXmlNode()
+        {
+            XmlReplaceCommand crep = new XmlReplaceCommand();
+            crep.XPath = "";
+            XmlElement element = XmlTools.SerializeToXmlElement(crep);
+            element.InnerXml = "<dummy>Test Content</dummy>";
+            return element;
+        }
 
-        //private XmlNode generateRemoveXmlNode()
-        //{
-        //    GOIVPL.Commands._xml.remove cadd = new GOIVPL.Commands._xml.remove();
-        //    cadd.XPath = "";
-        //    XmlElement element = XmlTools.SerializeToXmlElement(cadd);
-        //    return element;
-        //}
+        private XmlNode generateRemoveXmlNode()
+        {
+            XmlRemoveCommand crem = new XmlRemoveCommand();
+            crem.XPath = "";
+            XmlElement element = XmlTools.SerializeToXmlElement(crem);
+            return element;
+        }
 
 
         private void textXmlButton_Click(object sender, RoutedEventArgs e)
@@ -147,14 +147,14 @@ namespace GOIV_WPF.views
                             runTest_Add(childNode);
                             commands.Add(XmlTools.DeserializeFromXmlElement<XmlAddCommand>(childNode as XmlElement));
                             break;
-                        //case "replace":
-                        //    runTest_Replace(childNode);
-                        //    commands.Add(XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.replace>(childNode as XmlElement));
-                        //    break;
-                        //case "remove":
-                        //    runTest_Remove(childNode);
-                        //    commands.Add(XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.remove>(childNode as XmlElement));
-                        //    break;
+                        case "replace":
+                            runTest_Replace(childNode);
+                            commands.Add(XmlTools.DeserializeFromXmlElement<XmlReplaceCommand>(childNode as XmlElement));
+                            break;
+                        case "remove":
+                            runTest_Remove(childNode);
+                            commands.Add(XmlTools.DeserializeFromXmlElement<XmlRemoveCommand>(childNode as XmlElement));
+                            break;
                     }
 
                 }
@@ -190,33 +190,33 @@ namespace GOIV_WPF.views
             }
         }
 
-        //private void runTest_Replace(XmlNode childNode)
-        //{
-        //    GOIVPL.Commands._xml.replace creplace = XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.replace>(childNode as XmlElement);
-        //    XmlNode node = xmlDocument.SelectSingleNode(creplace.XPath);
-        //    if (node == null)
-        //    {
-        //        throw new Exception(creplace.XPath);
-        //    }
-        //    else
-        //    {
-        //        node.ParentNode.ReplaceChild(xmlDocument.ImportNode(childNode.FirstChild, true), node);
-        //    }
-        //}
+        private void runTest_Replace(XmlNode childNode)
+        {
+            XmlReplaceCommand creplace = XmlTools.DeserializeFromXmlElement<XmlReplaceCommand> (childNode as XmlElement);
+            XmlNode node = xmlDocument.SelectSingleNode(creplace.XPath);
+            if (node == null)
+            {
+                throw new Exception(creplace.XPath);
+            }
+            else
+            {
+                node.ParentNode.ReplaceChild(xmlDocument.ImportNode(childNode.FirstChild, true), node);
+            }
+        }
 
-        //private void runTest_Remove(XmlNode childNode)
-        //{
-        //    GOIVPL.Commands._xml.remove cremove = XmlTools.DeserializeFromXmlElement<GOIVPL.Commands._xml.remove>(childNode as XmlElement);
-        //    XmlNode node = xmlDocument.SelectSingleNode(cremove.XPath);
-        //    if (node == null)
-        //    {
-        //        throw new Exception(cremove.XPath);
-        //    }
-        //    else
-        //    {
-        //        node.ParentNode.RemoveChild(node);
-        //    }
-        //}
+        private void runTest_Remove(XmlNode childNode)
+        {
+            XmlRemoveCommand cremove = XmlTools.DeserializeFromXmlElement<XmlRemoveCommand>(childNode as XmlElement);
+            XmlNode node = xmlDocument.SelectSingleNode(cremove.XPath);
+            if (node == null)
+            {
+                throw new Exception(cremove.XPath);
+            }
+            else
+            {
+                node.ParentNode.RemoveChild(node);
+            }
+        }
 
         private void codebox_context_add_Click(object sender, RoutedEventArgs e)
         {
@@ -227,15 +227,15 @@ namespace GOIV_WPF.views
 
         private void codebox_context_replace_Click(object sender, RoutedEventArgs e)
         {
-        //    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateReplaceXmlNode(), true));
-        //    updateCodeText();
+            codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateReplaceXmlNode(), true));
+            updateCodeText();
 
         }
 
         private void codebox_context_remove_Click(object sender, RoutedEventArgs e)
         {
-        //    codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateRemoveXmlNode(), true));
-        //    updateCodeText();
+            codeDocument.DocumentElement.AppendChild(codeDocument.ImportNode(generateRemoveXmlNode(), true));
+            updateCodeText();
         }
     }
 
