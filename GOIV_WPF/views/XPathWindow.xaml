@@ -8,8 +8,30 @@
         xmlns:local="clr-namespace:GOIV_WPF"
         xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" x:Class="GOIV_WPF.views.XPathWindow"
         mc:Ignorable="d"
+        xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="XPath Editor" Height="621.916" Width="858.12" Loaded="onLoaded">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox Grid.Column="1" Grid.Row="0" Content="{StaticResource STRING_XPATH_LOAD_DOC}"/>
+        <Button Grid.Column="4" Grid.Row="0" Content="Test" Click="textXmlButton_Click"/>
+        <avalon:TextEditor x:Name="codeBox" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Grid.Row="1" TextChanged="code_TextChanged" SyntaxHighlighting="XML" FontSize="10pt">
+            <avalon:TextEditor.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{StaticResource STRING_XPATH_CONTEXT_ADD}" Click="codebox_context_add_Click"/>
+                    <MenuItem Header="{StaticResource STRING_XPATH_CONTEXT_REPLACE}" Click="codebox_context_replace_Click"/>
+                    <MenuItem Header="{StaticResource STRING_XPATH_CONTEXT_REMOVE}" Click="codebox_context_remove_Click"/>
+                </ContextMenu>
+            </avalon:TextEditor.ContextMenu>
+        </avalon:TextEditor>
+        <avalon:TextEditor x:Name="xmlBox" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" TextChanged="xml_TextChanged" SyntaxHighlighting="XML" FontSize="10pt"/>
     </Grid>
 </Controls:MetroWindow>

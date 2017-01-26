@@ -6,49 +6,55 @@ using System.Threading.Tasks;
 
 namespace GOIVPL.Commands
 {
-    [Serializable()]
-    public class add : Command
-    {
+    //[Serializable()]
+    //[System.Xml.Serialization.XmlRoot("add")]
+    //public class add : CommandL
+    //{
 
-        private string source;
-        private string name;
+    //    private string source;
+    //    private string name;
 
-        [System.Xml.Serialization.XmlAttribute("source")]
-        public string Source
-        {
-            get
-            {
-                return source;
-            }
+    //    [System.Xml.Serialization.XmlAttribute("source")]
+    //    public string Source
+    //    {
+    //        get
+    //        {
+    //            return source;
+    //        }
 
-            set
-            {
-                source = value;
-            }
-        }
+    //        set
+    //        {
+    //            source = value;
+    //        }
+    //    }
 
-        [System.Xml.Serialization.XmlText()]
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
+    //    [System.Xml.Serialization.XmlText()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return name;
+    //        }
 
-            set
-            {
-                name = value;
-            }
-        }
+    //        set
+    //        {
+    //            name = value;
+    //        }
+    //    }
 
-        public add() : base()
-        {
+    //    public add() : base()
+    //    {
 
-        }
+    //    }
 
-        public override string getString()
-        {
-            return "add, source=" + source + " -> " + name;
-        }
-    }
+    //    public override string getString()
+    //    {
+    //        return "add, source=" + source + " -> " + name;
+    //    }
+
+    //    public Boolean isXML()
+    //    {
+    //        return Name.EndsWith(".xml") || Name.EndsWith(".meta");
+    //    }
+    //}
 }

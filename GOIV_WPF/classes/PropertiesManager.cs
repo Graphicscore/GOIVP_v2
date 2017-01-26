@@ -12,6 +12,17 @@ namespace GOIV_WPF.Properties
 {
     class PropertiesManager
     {
+        private static PropertiesManager INSTANCE;
+
+        public static PropertiesManager getInstance(MainWindow window = null)
+        {
+            if(INSTANCE == null)
+            {
+                INSTANCE = new PropertiesManager(window);
+            }
+            return INSTANCE;
+        }
+
         private const String WORKING_DIR_PROP = "working_dir";
 
         private String workingDirectory;
@@ -22,7 +33,6 @@ namespace GOIV_WPF.Properties
             Settings.Default.Reload();
             this.window = window;
             this.workingDirectory = getWorkingDirectory() != null ? getWorkingDirectory() : null;
-            initWorkingDir();
         }
 
         public String getWorkingDirectory()
@@ -57,6 +67,7 @@ namespace GOIV_WPF.Properties
 
         public void load()
         {
+            initWorkingDir();
             window.onPropertiesChanged();
         }
 

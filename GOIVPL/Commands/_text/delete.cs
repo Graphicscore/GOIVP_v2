@@ -1,51 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._text
-{
-    public class delete : Command
-    {
-        private String condition, text;
+//namespace GOIVPL.Commands._text
+//{
+//    [System.Xml.Serialization.XmlType("deleteText")]
+//    public class delete : Command
+//    {
+//        private String condition, text;
 
-        [System.Xml.Serialization.XmlAttribute("condition")]
-        public string Condition
-        {
-            get
-            {
-                return condition;
-            }
+//        [System.Xml.Serialization.XmlAttribute("condition")]
+//        public string Condition
+//        {
+//            get
+//            {
+//                return condition;
+//            }
 
-            set
-            {
-                condition = value;
-            }
-        }
+//            set
+//            {
+//                condition = value;
+//            }
+//        }
 
-        [System.Xml.Serialization.XmlText()]
-        public string Text
-        {
-            get
-            {
-                return text;
-            }
+//        [System.Xml.Serialization.XmlText()]
+//        public string Text
+//        {
+//            get
+//            {
+//                return text;
+//            }
 
-            set
-            {
-                text = value;
-            }
-        }
+//            set
+//            {
+//                text = value;
+//            }
+//        }
 
-        public delete() : base()
-        {
+//        public delete() : base()
+//        {
 
-        }
+//        }
 
-        public override string getString()
-        {
-            return "text replace, text=" + text + ", condition=" + condition;
-        }
-    }
-}
+//        public override string getString()
+//        {
+//            return "text replace, text=" + text + ", condition=" + condition;
+//        }
+//    }
+//}

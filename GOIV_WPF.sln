@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOIV_WPF", "GOIV_WPF\GOIV_WPF.csproj", "{E8AB934C-9C02-4A92-B47A-B318CFBBA2CE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{591DCA7C-65A6-44D6-8195-0FE0F0396BF6} = {591DCA7C-65A6-44D6-8195-0FE0F0396BF6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOIVPL", "GOIVPL\GOIVPL.csproj", "{591DCA7C-65A6-44D6-8195-0FE0F0396BF6}"
 EndProject

@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>E:\Download\Package21\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,11 +50,27 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\defragmentation.cs" />
     <Compile Include="Commands\delete.cs" />
+    <Compile Include="Commands\generic\InterfaceCommand.cs" />
+    <Compile Include="Commands\generic\BaseCommand.cs" />
+    <Compile Include="Commands\generic\SubCommand.cs" />
+    <Compile Include="Commands\real\AddCommand.cs" />
+    <Compile Include="Commands\real\ArchiveCommand.cs" />
+    <Compile Include="Commands\real\DefragmentationCommand.cs" />
+    <Compile Include="Commands\real\DeleteCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlReplaceCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlRemoveCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlAddCommand.cs" />
+    <Compile Include="Commands\real\subcommands\xml\XmlSubCommand.cs" />
+    <Compile Include="Commands\real\XmlCommand.cs" />
+    <Compile Include="Commands\xml.cs" />
     <Compile Include="Commands\text.cs" />
     <Compile Include="Commands\_text\add.cs" />
     <Compile Include="Commands\_text\delete.cs" />
     <Compile Include="Commands\_text\insert.cs" />
     <Compile Include="Commands\_text\replace.cs" />
+    <Compile Include="Commands\_xml\remove.cs" />
+    <Compile Include="Commands\_xml\replace.cs" />
+    <Compile Include="Commands\_xml\xmladd.cs" />
     <Compile Include="Info\AuthorInfo.cs" />
     <Compile Include="Info\Color.cs" />
     <Compile Include="Info\Content.cs" />
@@ -67,9 +84,11 @@
     <Compile Include="OIVPManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlTools.cs" />
+    <Compile Include="XPath\XPathFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\_xml\" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
