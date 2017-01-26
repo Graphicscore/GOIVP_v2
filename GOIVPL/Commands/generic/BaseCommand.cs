@@ -1,33 +1,36 @@
-﻿using GOIVPL.Commands;
+﻿using GOIVPL.Commands.real;
+using GOIVPL.Commands.real.subcommands.xml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Collections;
-using GOIVPL.Commands.generic;
-using GOIVPL.Commands.real;
 
-namespace GOIVPL.Info
+namespace GOIVPL.Commands.generic
 {
-    [Serializable()]
-    public class Content
+    public abstract class BaseCommand : InterfaceCommand
     {
-
-        public Content()
-        {
-        }
-
         [System.Xml.Serialization.XmlElement(typeof(AddCommand), ElementName = "add")]
         [System.Xml.Serialization.XmlElement(typeof(ArchiveCommand), ElementName = "archive")]
         [System.Xml.Serialization.XmlElement(typeof(DefragmentationCommand), ElementName = "defragmentation")]
         [System.Xml.Serialization.XmlElement(typeof(DeleteCommand), ElementName = "delete")]
         [System.Xml.Serialization.XmlElement(typeof(XmlCommand), ElementName = "xml")]
-        //TODO TxTCommand
-        public List<BaseCommand> ICommands
+        public List<BaseCommand> SubCommands { get; set; }
+
+        public BaseCommand()
         {
-            get;set;
+            SubCommands = new List<BaseCommand>();
         }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public String CommandName
+        {
+            get
+            {
+                return getName();
+            }
+        }
+
+        public abstract string getName();
     }
 }

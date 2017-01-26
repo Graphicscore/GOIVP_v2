@@ -4,6 +4,9 @@ using GOIV_WPF.Utils;
 using GOIV_WPF.views;
 using GOIVPL;
 using GOIVPL.Commands;
+using GOIVPL.Commands.generic;
+using GOIVPL.Commands.real;
+using GOIVPL.Commands.real.subcommands.xml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.SimpleChildWindow;
@@ -478,7 +481,7 @@ namespace GOIV_WPF
                 controller.SetCancelable(true);
                 controller.Canceled += Controller_Canceled;
                 controller.SetIndeterminate();
-                List<Command> commands = await Task.Run(() => new OIVPManager().createCommandSetFromFolder(dlg.FileName));
+                List<BaseCommand> commands = await Task.Run(() => new OIVPManager().createCommandSetFromFolder(dlg.FileName));
                 oivFile.ContentPath = dlg.FileName;
                 oivFile.Content.ICommands = commands;
                 getTreeViewRootNode().ItemsSource = oivFile.ICommands;
@@ -498,7 +501,7 @@ namespace GOIV_WPF
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 var folder = dlg.FileName;
-                var controller = await this.ShowProgressAsync(FindResource("STRING_IMPORT_OIV_WAIT") as String, FindResource("STRNG_IMPORT_OIV_EXTRACTING") as String);
+                var controller = await this.ShowProgressAsync(FindResource("STRING_IMPORT_OIV_WAIT") as String, FindResource("STRING_IMPORT_OIV_EXTRACTING") as String);
                 ProgressChangedEventHandler progressHandler = new ProgressChangedEventHandler((s, ex) =>
                 {
                     double value = (ex as ProgressChangedEventArgs).ProgressPercentage / 100D;
@@ -792,13 +795,13 @@ namespace GOIV_WPF
 
         private void TreeViewSelectItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Command cmd = e.NewValue as Command;
+            BaseCommand cmd = e.NewValue as BaseCommand;
             if (cmd != null)
             {
                 switch(cmd.GetType().Name)
                 {
-                    case "add":
-                        if((cmd as add).isXML())
+                    case "AddCommand":
+                        if((cmd as AddCommand).isXML())
                         {
                             treeview_files.ContextMenu = treeview_files.Resources["XmlFileContext"] as ContextMenu;
                         }
@@ -807,10 +810,10 @@ namespace GOIV_WPF
                             treeview_files.ContextMenu = treeview_files.Resources["FileContext"] as ContextMenu;
                         }
                         break;
-                    case "archive":
+                    case "ArchiveCommand":
                         treeview_files.ContextMenu = treeview_files.Resources["ArchiveContext"] as ContextMenu;
                         break;
-                    case "xml":
+                    case "XmlCommand":
                         treeview_files.ContextMenu = treeview_files.Resources["XmlContext"] as ContextMenu;
                         break;
                     default:
@@ -853,33 +856,32 @@ namespace GOIV_WPF
 
         private void FileContextConvertXml_Click(object sender, RoutedEventArgs e)
         {
-            xml cxml = new xml();
+            XmlCommand cxml = new XmlCommand();
             TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
             TreeViewItem parent = TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem;
-            Command dataContext = parent.DataContext as Command;
-            int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
-            cxml.Path = (item.DataContext as add).Name;
-            cxml.LocalXmlFilePath = (item.DataContext as add).Source;
-            dataContext.ICommands.RemoveAt(index);
-            dataContext.ICommands.Insert(index, cxml);
-            parent.DataContext = dataContext;
+            BaseCommand dataContext = parent.DataContext as BaseCommand;
+            int index = dataContext.SubCommands.IndexOf(item.DataContext as BaseCommand);
+            cxml.Path = (item.DataContext as AddCommand).Name;
+            cxml.LocalXmlFilePath = (item.DataContext as AddCommand).Source;
+            dataContext.SubCommands.RemoveAt(index);
+            dataContext.SubCommands.Insert(index, cxml);;
             parent.Items.Refresh();
         }
 
         private void FileContextConvertFile_Click(object sender, RoutedEventArgs e)
         {
-            add cadd = new add();
+            AddCommand cadd = new AddCommand();
             TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
             TreeViewItem parent = TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem;
 
-            Command dataContext = parent.DataContext as Command;
-            int index = dataContext.ICommands.IndexOf(item.DataContext as Command);
+            BaseCommand dataContext = parent.DataContext as BaseCommand;
+            int index = dataContext.SubCommands.IndexOf(item.DataContext as BaseCommand);
 
-            cadd.Name = (item.DataContext as xml).Path;
+            cadd.Name = (item.DataContext as XmlCommand).Path;
 
-            if (parent.DataContext.GetType() == typeof(archive))
+            if (parent.DataContext.GetType() == typeof(ArchiveCommand))
             {
-                cadd.Source = (parent.DataContext as archive).Path + "\\" + cadd.Name;
+                cadd.Source = (parent.DataContext as ArchiveCommand).Path + "\\" + cadd.Name;
             }
             else
             {
@@ -887,20 +889,23 @@ namespace GOIV_WPF
             }
             
             
-            dataContext.ICommands.RemoveAt(index);
-            dataContext.ICommands.Insert(index, cadd);
+            dataContext.SubCommands.RemoveAt(index);
+            dataContext.SubCommands.Insert(index, cadd);
             parent.DataContext = dataContext;
             parent.Items.Refresh();
         }
 
         private void FileContextEditXpath_Click(object sender, RoutedEventArgs e)
         {
-            XPathWindow window = new XPathWindow(ref oivFile,treeview_files.SelectedItem as xml);
-            if(window.ShowDialog() == true)
+            XPathWindow window = new XPathWindow(ref oivFile,treeview_files.SelectedItem as XmlCommand);
+            if (window.ShowDialog() == true)
             {
-                
+                TreeViewItem item = TreeViewUtils.ContainerFromItem(treeview_files.ItemContainerGenerator, treeview_files.SelectedItem);
+                XmlCommand cmd = item.DataContext as XmlCommand;
+                cmd.XmlSubCommands.AddRange(window.commands);
+                (TreeViewUtils.GetSelectedTreeViewItemParent(item) as TreeViewItem).Items.Refresh();
             }
-            System.Windows.MessageBox.Show("");
+           
         }
     }
 }

@@ -7,7 +7,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GOIV_WPF"
         xmlns:lib="clr-namespace:GOIVPL;assembly=GOIVPL"
-        xmlns:libc="clr-namespace:GOIVPL.Commands;assembly=GOIVPL"
+        xmlns:libc="clr-namespace:GOIVPL.Commands.generic;assembly=GOIVPL"
         xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" x:Class="GOIV_WPF.MainWindow"
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -248,12 +248,9 @@
                                 <HierarchicalDataTemplate DataType="{x:Type lib:OIVFile}" ItemsSource="{Binding Content}">
                                     <TextBlock Text="{Binding Path=CommandName}" />
                                 </HierarchicalDataTemplate>
-                                <HierarchicalDataTemplate DataType="{x:Type libc:Command}" ItemsSource="{Binding ICommands}">
+                                <HierarchicalDataTemplate DataType="{x:Type libc:BaseCommand}" ItemsSource="{Binding SubCommands}">
                                     <TextBlock Text="{Binding Path=CommandName}" />
                                 </HierarchicalDataTemplate>
-                                <DataTemplate DataType="{x:Type libc:add}" >
-                                    <TextBlock Text="{Binding Path=CommandName}" />
-                                </DataTemplate>
                             </TreeViewItem.Resources>
                         </TreeViewItem>
                         <TreeView.Resources>

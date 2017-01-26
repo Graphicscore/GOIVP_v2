@@ -1,65 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._text
-{
-    public class replace : Command
-    {
-        private String line, condition,text;
+//namespace GOIVPL.Commands._text
+//{
+//    [System.Xml.Serialization.XmlType("replaceText")]
+//    public class replace : Command
+//    {
+//        private String line, condition,text;
 
-        [System.Xml.Serialization.XmlText()]
-        public string Text
-        {
-            get
-            {
-                return text;
-            }
+//        [System.Xml.Serialization.XmlText()]
+//        public string Text
+//        {
+//            get
+//            {
+//                return text;
+//            }
 
-            set
-            {
-                text = value;
-            }
-        }
+//            set
+//            {
+//                text = value;
+//            }
+//        }
 
-        [System.Xml.Serialization.XmlAttribute("line")]
-        public string Line
-        {
-            get
-            {
-                return line;
-            }
+//        [System.Xml.Serialization.XmlAttribute("line")]
+//        public string Line
+//        {
+//            get
+//            {
+//                return line;
+//            }
 
-            set
-            {
-                line = value;
-            }
-        }
+//            set
+//            {
+//                line = value;
+//            }
+//        }
 
-        [System.Xml.Serialization.XmlAttribute("condition")]
-        public string Condition
-        {
-            get
-            {
-                return condition;
-            }
+//        [System.Xml.Serialization.XmlAttribute("condition")]
+//        public string Condition
+//        {
+//            get
+//            {
+//                return condition;
+//            }
 
-            set
-            {
-                condition = value;
-            }
-        }
+//            set
+//            {
+//                condition = value;
+//            }
+//        }
 
-        public replace() : base()
-        {
+//        public replace() : base()
+//        {
 
-        }
+//        }
 
-        public override string getString()
-        {
-            return "text replace, line=" + line + ", condition=" + condition + ",text=" + text;
-        }
-    }
-}
+//        public override string getString()
+//        {
+//            return "text replace, line=" + line + ", condition=" + condition + ",text=" + text;
+//        }
+//    }
+//}

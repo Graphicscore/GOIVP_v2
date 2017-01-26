@@ -6,20 +6,25 @@
     <system:String x:Key="STRING_VERSION_MINOR">Version Minor</system:String>
     <system:String x:Key="STRING_VERSION_TAG">Version Tag</system:String>
     <system:String x:Key="STRING_VERSION">Version</system:String>
+    
     <system:String x:Key="STRING_PACKAGE_NAME">Package Name</system:String>
     <system:String x:Key="STRING_PACKAGE_GAME">Target Game</system:String>
     <system:String x:Key="STRING_PACKAGE">Package</system:String>
+    
     <system:String x:Key="STRING_VERSION_TAG_PLACEHOLDER">Version Suffix</system:String>
     <system:String x:Key="STRING_VERSION_TAG_CHECKBOX">Enable Version Tag</system:String>
+    
     <system:String x:Key="STRING_DESCRIPTION">Description</system:String>
     <system:String x:Key="STRING_DESCRIPTION_PLACEHOLDER">Description</system:String>
     <system:String x:Key="STRING_DESCRIPTION_FOOTER">Footer</system:String>
     <system:String x:Key="STRING_DESCRIPTION_FOOTER_PLACEHOLDER">Custom Footer Text</system:String>
     <system:String x:Key="STRING_DESCRIPTION_FOOTER_LINK_PLACEHOLDER">Custom Footer Link</system:String>
+    
     <system:String x:Key="STRING_LARGE_DESCRIPTION_PLACEHOLDER">Large Description</system:String>
     <system:String x:Key="STRING_LARGE_DESCRIPTION_FOOTER_PLACEHOLDER">Custom Footer Text</system:String>
     <system:String x:Key="STRING_LARGE_DESCRIPTION_FOOTER_LINK_PLACEHOLDER">Custom Footer Link</system:String>
     <system:String x:Key="STRING_LARGE_DESCRIPTION_DISPLAYNAME_PLACEHOLDER">Display Name</system:String> 
+    
     <system:String x:Key="STRING_TAB_GENERAL">General</system:String>
     <system:String x:Key="STRING_TAB_DESCRIPTION">Description</system:String>
     <system:String x:Key="STRING_TAB_LARGE_DESCRIPTION">Large Description</system:String>
@@ -27,46 +32,68 @@
     <system:String x:Key="STRING_TAB_FILES">Files</system:String>
     <system:String x:Key="STRING_TAB_PREVIEW">Preview</system:String>
     <system:String x:Key="STRING_TAB_LICENSE">License</system:String>
+
+    <system:String x:Key="STRING_AUTHOR">Author</system:String>
     <system:String x:Key="STRING_AUTHOR_DISPLAYNAME">Author Display Name</system:String>
     <system:String x:Key="STRING_AUTHOR_LABEL_ACTION">Author Label Action</system:String>
     <system:String x:Key="STRING_AUTHOR_LABEL_WEB">Author Web Address</system:String>
     <system:String x:Key="STRING_AUTHOR_LABEL_FACEBOOK">Author Facebook Name</system:String>
     <system:String x:Key="STRING_AUTHOR_LABEL_TWITTER">Author Twitter Name</system:String>
     <system:String x:Key="STRING_AUTHOR_LABEL_YOUTUBE">Author Youtube Name</system:String>
+    
     <system:String x:Key="STRING_IMPORT_FOLDER">Import Folder</system:String>
+    
     <system:String x:Key="STRING_PREVIEW_SETIMAGE">Set Image</system:String>
     <system:String x:Key="STRING_PREVIEW_SETCOLOR">Set Color</system:String>
     <system:String x:Key="STRING_PREVIEW_TOGGLE_BLACKWHITE">Toggle Black White</system:String>
+    
     <system:String x:Key="STRING_SAMPLE_PACKAGE_NAME">My OIV Package</system:String>
-    <system:String x:Key="STRING_AUTHOR">Author</system:String>
+    
     <system:String x:Key="STRING_ABOUT">About</system:String>
     <system:String x:Key="STRING_OPEN_OIV">Import OIV</system:String>
+    
     <system:String x:Key="STRING_EXPORT_OIV">Export OIV</system:String>
     <system:String x:Key="STRING_IMPORT_OIV_WAIT">Please wait , we are loading your OIV ....</system:String>
-    <system:String x:Key="STRNG_IMPORT_OIV_EXTRACTING">Extracting OIV archive ...</system:String>
+    <system:String x:Key="STRING_IMPORT_OIV_EXTRACTING">Extracting OIV archive ...</system:String>
     <system:String x:Key="STRING_IMPORT_OIV_PARSE">Loading Assembly XML</system:String>
+    
     <system:String x:Key="STRING_LICENSE_PLACEHOLDER">License (Optional)</system:String>
+    
     <system:String x:Key="STRING_OIV_FILE">OIV Package</system:String>
     <system:String x:Key="STRING_ZIP_FILE">Zip Archive</system:String>
+    
     <system:String x:Key="STRING_CLEAR_IMPORT">Clear</system:String>
     <system:String x:Key="STRING_EXPORT_OIV_WAIT">Please wait, we are creating your OIV</system:String>
     <system:String x:Key="STRNG_EXPORT_OIV_PACKING">Packing OIV</system:String>
     <system:String x:Key="STRING_PNG_FILE">PNG File</system:String>
     <system:String x:Key="STRING_INVALID_IMAGE_TITLE">Invalid Image File</system:String>
     <system:String x:Key="STRING_INVALID_IMAGE_MESSAGE">We could not load your image, is it corrupted ?</system:String>
+    
     <system:String x:Key="STRING_EXCEPTION_INVALID_IMAGE_SIZE">Invalid image size, make sure the image is exact 128x128 Pixels</system:String>
+    
     <system:String x:Key="STRING_CONTEXT_FILE_RENAME">Rename</system:String>
     <system:String x:Key="STRING_CONTEXT_FILE_REMOVE">Remove</system:String>
     <system:String x:Key="STRING_CONTEXT_ARCHIVE_ADDFILE">Add File</system:String>
+    
     <system:String x:Key="STRING_SETTINGS">Settings</system:String>
     <system:String x:Key="STRING_BROWSE_SHORT">...</system:String>
+    
     <system:String x:Key="STRING_WORKING_DIR_LABEL">Working Directory</system:String>
     <system:String x:Key="STRING_WORKING_DIR_POPUP_TITLE">Hello my friend !</system:String>
+    
     <system:String x:Key="STRING_CONTEXT_FILE_XML">Convert XML</system:String>
     <system:String x:Key="STRING_CONTEXT_FILE_CONVERT">Convert File</system:String>
     <system:String x:Key="STRING_CONTEXT_FILE_XPATH">Modify XPATH</system:String>
+
     <system:String x:Key="STRING_XPATH_LOAD_DOC">Load Original XML</system:String>
-    
+    <system:String x:Key="STRING_XPATH_CONTEXT_ADD">XML Add</system:String>
+    <system:String x:Key="STRING_XPATH_CONTEXT_REPLACE">XML Replace</system:String>
+    <system:String x:Key="STRING_XPATH_CONTEXT_REMOVE">XML Remove</system:String>
+    <system:String x:Key="STRING_XPATH_CONTEXT_PASTE">Paste</system:String>
+    <system:String x:Key="STRING_XPATH_CONTEXT_COPY">Copy</system:String>
+    <system:String x:Key="STRING_XPATH_ERROR_TITLE">Oohps !</system:String>
+    <system:String x:Key="STRING_XPATH_ERROR_MESSAGE">It seems like there is an error in your XML Code. Please verify that the following node has no mistakes : </system:String>
+
     <system:String x:Key="STRING_WORKING_DIR_POPUP_MESSAGE">It seems like we haven't set up a modding working directory yet. Please select a folder you would like to use for this tool to work internally with, we recommend to set this folder on a drive with alot of space =).</system:String>
 
     <system:String x:Key="STRING_PROPERTIES_INVALID_TITLE">Required Properties</system:String>
@@ -77,4 +104,7 @@
     <BitmapImage x:Key="IMAGE_DEFAULT" UriSource="Resources/icon.png" />
     <SolidColorBrush Color="#FFFFFFFF" x:Key="BRUSH_WHITE"></SolidColorBrush>
     <SolidColorBrush Color="#FF000000" x:Key="BRUSH_BLACK"></SolidColorBrush>
+
+    
+
 </ResourceDictionary>

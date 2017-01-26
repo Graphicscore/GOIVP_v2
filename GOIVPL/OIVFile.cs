@@ -1,4 +1,5 @@
-﻿using GOIVPL.Info;
+﻿using GOIVPL.Commands.generic;
+using GOIVPL.Info;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,6 @@ namespace GOIVPL
         private string target;
         [System.Xml.Serialization.XmlIgnore]
         private string version;
-        [System.Xml.Serialization.XmlIgnore]
-        IList<Commands.Command> icommands;
 
         [System.Xml.Serialization.XmlIgnore]
         private System.Drawing.Bitmap picture;
@@ -96,7 +95,7 @@ namespace GOIVPL
             }
         }
 
-        public IList<Commands.Command> ICommands
+        public IList<BaseCommand> ICommands
         {
             get
             {
