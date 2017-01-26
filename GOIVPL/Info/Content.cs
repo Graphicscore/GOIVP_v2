@@ -5,46 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Collections;
+using GOIVPL.Commands.generic;
+using GOIVPL.Commands.real;
 
 namespace GOIVPL.Info
 {
     [Serializable()]
     public class Content
     {
-        private XmlElement[] elements;
 
         public Content()
         {
-
         }
 
-        [System.Xml.Serialization.XmlAnyElement]
-        public XmlElement[] Elements
+        [System.Xml.Serialization.XmlElement(typeof(AddCommand), ElementName = "add")]
+        [System.Xml.Serialization.XmlElement(typeof(ArchiveCommand), ElementName = "archive")]
+        [System.Xml.Serialization.XmlElement(typeof(DefragmentationCommand), ElementName = "defragmentation")]
+        [System.Xml.Serialization.XmlElement(typeof(DeleteCommand), ElementName = "delete")]
+        [System.Xml.Serialization.XmlElement(typeof(XmlCommand), ElementName = "xml")]
+        //TODO TxTCommand
+        public List<BaseCommand> ICommands
         {
-            get
-            {
-                return elements;
-            }
-
-            set
-            {
-                elements = value;
-            }
-        }
-
-        public Command[] getCommands()
-        {
-            return OIVPManager.getCommands(Elements);
-        }
-
-        public void setCommands(List<Command> commands)
-        {
-            List<XmlElement> xmls = new List<XmlElement>();
-            foreach(Command c in commands)
-            {
-                xmls.Add(XmlTools.SerializeToXmlElement(c));
-            }
-            this.Elements = xmls.ToArray();
+            get;set;
         }
     }
 }

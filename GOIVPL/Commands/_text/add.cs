@@ -1,38 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GOIVPL.Commands._text
-{
-    public class add : Command
-    {
+//namespace GOIVPL.Commands._text
+//{
+//    [System.Xml.Serialization.XmlType("addText")]
+//    public class add : Command
+//    {
 
-        private string text;
+//        private string text;
 
-        [System.Xml.Serialization.XmlText()]
-        public string Text
-        {
-            get
-            {
-                return text;
-            }
+//        [System.Xml.Serialization.XmlText()]
+//        public string Text
+//        {
+//            get
+//            {
+//                return text;
+//            }
 
-            set
-            {
-                text = value;
-            }
-        }
+//            set
+//            {
+//                text = value;
+//            }
+//        }
 
-        public add() : base()
-        {
+//        public add() : base()
+//        {
 
-        }
+//        }
 
-        public override string getString()
-        {
-            return "add text : " + text;
-        }
-    }
-}
+//        public override string getString()
+//        {
+//            return "add text : " + text;
+//        }
+//    }
+//}

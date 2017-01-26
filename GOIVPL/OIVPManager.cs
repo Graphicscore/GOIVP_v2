@@ -1,4 +1,6 @@
 ﻿using GOIVPL.Commands;
+using GOIVPL.Commands.generic;
+using GOIVPL.Commands.real;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
@@ -37,9 +39,8 @@ namespace GOIVPL
 
             return cmds.ToArray<Command>();
         }*/
-        public static Command[] getCommands(XmlElement[] elements)
+        /*public static Command[] commandFromXml(XmlElement[] elements)
         {
-            OIVPManager mgr = new OIVPManager();
             List<Command> cmds = new List<Command>();
 
             foreach (XmlElement element in elements)
@@ -55,11 +56,11 @@ namespace GOIVPL
             }
 
             return cmds.ToArray<Command>();
-        }
+        }*/
 
-        public OIVFile loadOIVByUnextractedFolder(String Folder)
+        public OIVFile loadOIVByUnextractedFolder(String oivFile)
         {
-            return loadOIV(new FileInfo(Folder + "_extracted\\assembly.xml"));
+            return loadOIV(new FileInfo(oivFile));
         }
 
         public OIVFile loadOIV(FileInfo file)
@@ -77,12 +78,13 @@ namespace GOIVPL
             return oiv;
         }
 
-        public Boolean ExtractOIV(String oivPath, ProgressChangedEventHandler progressHandler)
+        public String ExtractOIV(String oivPath, String workingDirectory, ProgressChangedEventHandler progressHandler)
         {
             FileInfo info = new FileInfo(oivPath);
             DirectoryInfo parentDir = info.Directory;
-            String outFolder = parentDir.FullName + "\\" + info.Name + "_extracted";
-            return ExtractZipFile(oivPath, "", outFolder, progressHandler);
+            String outFolder = workingDirectory + "\\" + info.Name + "_extracted";
+            String r = ExtractZipFile(oivPath, "", outFolder, progressHandler);
+            return r == null ? outFolder : null;
         }
 
         public void createZipFile(string outPathname, string folderName)
@@ -152,7 +154,7 @@ namespace GOIVPL
             }
         }
 
-        private Boolean ExtractZipFile(string archiveFilenameIn, string password, string outFolder, ProgressChangedEventHandler progress)
+        private String ExtractZipFile(string archiveFilenameIn, string password, string outFolder, ProgressChangedEventHandler progress)
         {
 
             ZipFile zf = null;
@@ -207,31 +209,29 @@ namespace GOIVPL
                     zf.Close(); // Ensure we release resources
                 }
             }
-            return true;
+            return null;
         }
 
-        public List<Command> createCommandSetFromFolder(String selectedPath)
+        public List<BaseCommand> createCommandSetFromFolder(String selectedPath)
         {
 
             DirectoryInfo folder = new DirectoryInfo(selectedPath);
 
-            Command command = new Command();
-
-            List<Command> cmd = shit(folder, folder, folder);
+            List<BaseCommand> cmd = shit(folder, folder, folder);
 
             return cmd;
         }
 
-        public List<Command> shit(DirectoryInfo rootDir, DirectoryInfo dir, DirectoryInfo archiveDir)
+        public List<BaseCommand> shit(DirectoryInfo rootDir, DirectoryInfo dir, DirectoryInfo archiveDir)
         {
 
             
 
-            List<Command> commands = new List<Command>();
+            List<BaseCommand> commands = new List<BaseCommand>();
 
             foreach (FileInfo sFile in dir.GetFiles())
             {
-                add addC = new add();
+                AddCommand addC = new AddCommand();
                 addC.Source = checkLeading(sFile.FullName.Replace(rootDir.FullName, ""));
                 addC.Name = checkLeading(sFile.FullName.Replace(archiveDir.FullName, ""));
                 commands.Add(addC);
@@ -240,12 +240,12 @@ namespace GOIVPL
             {
                 if (sDir.Name.Contains(".rpf"))
                 {
-                    archive archive = new archive();
+                    ArchiveCommand archive = new ArchiveCommand();
                     archive.Path = checkLeading(sDir.FullName.Replace(archiveDir.FullName, ""));
                     archive.CreateIfNotExists = "True";
                     archive.ArchiveType = "RPF7";
 
-                    archive.addSubCommand(shit(rootDir, sDir, sDir));
+                    archive.SubCommands.AddRange(shit(rootDir, sDir, sDir));
                     commands.Add(archive);
                 }
                 else

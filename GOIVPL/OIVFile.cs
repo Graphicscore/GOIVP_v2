@@ -1,4 +1,5 @@
-﻿using GOIVPL.Info;
+﻿using GOIVPL.Commands.generic;
+using GOIVPL.Info;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -91,6 +92,14 @@ namespace GOIVPL
                 {
                     handler(this, new PropertyChangedEventArgs(null));
                 }
+            }
+        }
+
+        public IList<BaseCommand> ICommands
+        {
+            get
+            {
+                return Content.ICommands;
             }
         }
 
