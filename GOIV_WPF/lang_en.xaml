@@ -94,6 +94,8 @@
     <system:String x:Key="STRING_XPATH_ERROR_TITLE">Oohps !</system:String>
     <system:String x:Key="STRING_XPATH_ERROR_MESSAGE">It seems like there is an error in your XML Code. Please verify that the following node has no mistakes : </system:String>
 
+    <system:String x:Key="STRING_PROJECT_EXPLORER">Project Explorer</system:String>
+    
     <system:String x:Key="STRING_WORKING_DIR_POPUP_MESSAGE">It seems like we haven't set up a modding working directory yet. Please select a folder you would like to use for this tool to work internally with, we recommend to set this folder on a drive with alot of space =).</system:String>
 
     <system:String x:Key="STRING_PROPERTIES_INVALID_TITLE">Required Properties</system:String>

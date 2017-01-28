@@ -67,7 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="GOIVPL">
-      <HintPath>..\GOIVPL\bin\Debug\GOIVPL.dll</HintPath>
+      <HintPath>..\GOIVPL\obj\Debug\GOIVPL.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -162,10 +162,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\projects\ProjectInfo.cs" />
     <Compile Include="classes\StorageUtility.cs" />
     <Compile Include="classes\TreeViewUtils.cs" />
     <Compile Include="views\DiffView.xaml.cs">
       <DependentUpon>DiffView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\ProjectExplorer.xaml.cs">
+      <DependentUpon>ProjectExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\XPathWindow.xaml.cs">
       <DependentUpon>XPathWindow.xaml</DependentUpon>
@@ -193,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\DiffView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ProjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,6 +262,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\vstudio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
